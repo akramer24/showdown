@@ -1,0 +1,26 @@
+// set up server here
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const volleyball = require('volleyball');
+const path = require('path');
+
+const app = express();
+
+app.use(volleyball);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static(path.join(__dirname, '../public')));
+app.use('/api', require('./api'));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+})
+
+app.use((err, req, res, next) => {
+    console.error(error.stack);
+    res.status(err.status || 500).send(err.message || 'Internal server error');
+})
+
+module.exports = app;
