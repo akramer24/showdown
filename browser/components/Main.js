@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Navbar from './Navbar';
 import AllBatters from './AllBatters';
 import SingleBatter from './SingleBatter';
 import AllPitchers from './AllPitchers';
@@ -10,7 +11,7 @@ export default function Main() {
     return (
         <Router>
             <div>
-                <h1>Hello</h1>
+            <Navbar />
                 <Switch>
                     <Route exact path='/players' component={AllPlayers} />
                     <Route exact path='/players/batters' component={AllBatters} />

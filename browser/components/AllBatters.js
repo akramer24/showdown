@@ -23,12 +23,12 @@ class AllBatters extends Component {
 
         return (
             <div>
-                <h1>Batters</h1>
-                <div>
+                <h1 className='page-header'>Batters</h1>
+                <div id='all-batters'>
                     {
                         batters.map(batter => {
                             return (
-                                <div key={batter.id}>
+                                <div key={batter.id} className='batter'>
                                     <h3>{batter.name}</h3>
                                     <div>
                                         <ul>

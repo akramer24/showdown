@@ -16,12 +16,12 @@ class AllPitchers extends Component {
 
         return (
             <div>
-            <h1>Pitchers</h1>
-            <div>
+            <h1 className='page-header'>Pitchers</h1>
+            <div id='all-pitchers'>
                 {
                     pitchers.map(pitcher => {
                         return (
-                            <div key={pitcher.id}>
+                            <div key={pitcher.id} className='pitcher'>
                                 <h3>{pitcher.name}</h3>
                                 <div>
                                     <ul>
