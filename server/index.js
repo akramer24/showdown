@@ -19,7 +19,7 @@ app.get('*', (req, res) => {
 })
 
 app.use((err, req, res, next) => {
-    console.error(error.stack);
+    console.error(err.stack);
     res.status(err.status || 500).send(err.message || 'Internal server error');
 })
 

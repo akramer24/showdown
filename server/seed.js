@@ -1,4 +1,4 @@
-const { db, Batter, Pitcher, User } = require('./db/models');
+const { db, Batter, Pitcher, User, UserBatter } = require('./db/models');
 
 const data = {
     batters: [
@@ -12,9 +12,7 @@ const data = {
             FB: [4, 5, 6],
             BB: [7, 8, 9, 10, 11, 12, 13],
             single: [14, 15],
-            singlePlus: [],
             double: [16, 17],
-            triple: [],
             homeRun:[18, 19, 20],
             speed: 15,
             bats: 'Right',
@@ -32,9 +30,7 @@ const data = {
             FB: [7],
             BB: [8, 9, 10, 11, 12],
             single: [13, 14, 15],
-            singlePlus: [],
             double: [16, 17, 18, 19],
-            triple: [],
             homeRun: [20],
             speed: 12,
             bats: 'Right',
@@ -95,8 +91,6 @@ const data = {
             FB: [15, 16],
             BB: [17, 18, 19],
             single: [20],
-            double: [],
-            homeRun: [],
             IP: 6, 
             throws: 'Left',
             position: 'SP',
@@ -110,6 +104,13 @@ const data = {
             lastName: 'Kramer',
             email: 'arikramer24@gmail.com',
             teamName: 'Diggity Dingers'
+        }
+    ],
+
+    userBatters: [
+        {
+            userId: 1,
+            batterId: 1
         }
     ]
 }
@@ -128,6 +129,11 @@ db.sync({force: true})
 .then(() => {
     data.users.forEach(user => {
         User.create(user)
+    })
+})
+.then(() => {
+    data.userBatters.forEach(userBatter => {
+        UserBatter.create(userBatter)
     })
 })
 .catch(err => console.error(err));
