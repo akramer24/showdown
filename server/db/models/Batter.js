@@ -30,7 +30,10 @@ const Batter = db.define('batter', {
     speed: Sequelize.INTEGER,
     bats: Sequelize.STRING,
     position: Sequelize.STRING,
-    image: Sequelize.STRING
+    image: {
+        type: Sequelize.STRING,
+        defaultValue: 'https://cdn6.bigcommerce.com/s-0kvv9/images/stencil/1280x1280/products/70292/66725/2003-mlb-showdown-booster-pack-9-cards-14__20186.1461137719.jpg?c=2'
+    }
 },  {
     getterMethods: {
         name() {

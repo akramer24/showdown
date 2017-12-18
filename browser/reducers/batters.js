@@ -26,6 +26,15 @@ export function fetchBatters() {
     }
 }
 
+export function fetchUserBatters(id) {
+    return function thunk(dispatch) {
+        return axios.get(`/api/users/${id}/batters`)
+                .then(res => res.data)
+                .then(batters => dispatch(getBatters(batters)))
+                .catch(err => console.error(err))
+    }
+}
+
 
 export default function battersReducer(state = [], action) {
     switch (action.type) {

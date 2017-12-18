@@ -31,7 +31,6 @@ export default class AddToTeam extends Component {
     render() {
         return (
             <div>
-                <h4>Add Player to My Team</h4>
                 <select onChange={this.handleSelectUser.bind(this)}>
                     <option defaultValue defaultChecked hidden>Select your team</option>
                     {

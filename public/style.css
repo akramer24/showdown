@@ -69,15 +69,28 @@ body {
 
 #all-batters, #all-pitchers {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .batter, .pitcher {
     margin: 10px;
     padding: 10px;
     border: 2px solid black;
+    width: 238px;
+    height: 521px;
 }
 
 .page-header {
     position: relative;
     left: 10px;
+}
+
+.player-img {
+    width: 214px;
+    height: 301px;
+}
+
+#display-players-page {
+    margin: 20px;
 }

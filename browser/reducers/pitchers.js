@@ -18,6 +18,15 @@ export function fetchPitchers() {
     }
 }
 
+export function fetchUserPitchers(id) {
+    return function thunk(dispatch) {
+        return axios.get(`/api/users/${id}/pitchers`)
+                .then(res => res.data)
+                .then(pitchers => dispatch(getPitchers(pitchers)))
+                .catch(err => console.error(err))
+    }
+}
+
 export default function pitchersReducer(state = [], action) {
     switch (action.type) {
         case GET_PITCHERS:
