@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchUserBatters, fetchUserPitchers, fetchUser, setAwayLineup, setHomeLineup } from '../reducers';
-import BattingOrder from './BattingOrder';
+import SelectLineup from './SelectLineup';
 import store from '../store';
 
 class SetLineups extends Component {
@@ -19,9 +19,8 @@ class SetLineups extends Component {
         this.props.loadUser(id)
     }
 
-    handleChange(batter, event) {
-        this.order[event.target.value - 1] = batter;
-        console.log(this.order)
+    handleChange(player, event) {
+        this.order[event.target.value - 1] = player;
     }
 
     handleSubmit() {
@@ -40,7 +39,7 @@ class SetLineups extends Component {
                                 <h4 key={batter.id} onChange={this.handleChange.bind(this, batter)}>{batter.name}
                                     <span>&nbsp;
                                         <select >
-                                            <BattingOrder />
+                                            <SelectLineup />
                                         </select>
                                     </span>
                                 </h4>
@@ -52,7 +51,18 @@ class SetLineups extends Component {
                 <h3>Pitchers</h3>
                 {
                     this.props.pitchers.map(pitcher => {
-                        return <h4 key={pitcher.id}>{pitcher.name}</h4>
+                        return (
+                            <div key={pitcher.id}>
+                            <h4 key={pitcher.id} onChange={this.handleChange.bind(this, pitcher)}>{pitcher.name}
+                                <span>&nbsp;
+                                    <select >
+                                        <SelectLineup />
+                                    </select>
+                                </span>
+                            </h4>
+
+                        </div>
+                        )
                     })
                 }
                 <NavLink to='/home-lineup'><button onClick={this.handleSubmit.bind(this)}>Submit</button></NavLink>
