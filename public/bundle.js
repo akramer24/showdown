@@ -392,6 +392,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__ = __webpack_require__(137);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "BrowserRouter", function() { return __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HashRouter__ = __webpack_require__(139);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "HashRouter", function() { return __WEBPACK_IMPORTED_MODULE_1__HashRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Link__ = __webpack_require__(59);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return __WEBPACK_IMPORTED_MODULE_2__Link__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__ = __webpack_require__(141);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MemoryRouter", function() { return __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavLink__ = __webpack_require__(144);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "NavLink", function() { return __WEBPACK_IMPORTED_MODULE_4__NavLink__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Prompt__ = __webpack_require__(147);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Prompt", function() { return __WEBPACK_IMPORTED_MODULE_5__Prompt__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(149);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Redirect", function() { return __WEBPACK_IMPORTED_MODULE_6__Redirect__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(60);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Route", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(31);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Router", function() { return __WEBPACK_IMPORTED_MODULE_8__Router__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(155);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "StaticRouter", function() { return __WEBPACK_IMPORTED_MODULE_9__StaticRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Switch__ = __webpack_require__(157);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Switch", function() { return __WEBPACK_IMPORTED_MODULE_10__Switch__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(159);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "matchPath", function() { return __WEBPACK_IMPORTED_MODULE_11__matchPath__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(160);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withRouter", function() { return __WEBPACK_IMPORTED_MODULE_12__withRouter__["a"]; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -450,7 +509,7 @@ module.exports = invariant;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -620,7 +679,7 @@ var reducer = (0, _redux.combineReducers)({
 exports.default = reducer;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -927,65 +986,6 @@ module.exports = {
   extend: extend,
   trim: trim
 };
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__ = __webpack_require__(137);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "BrowserRouter", function() { return __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HashRouter__ = __webpack_require__(139);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "HashRouter", function() { return __WEBPACK_IMPORTED_MODULE_1__HashRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Link__ = __webpack_require__(59);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return __WEBPACK_IMPORTED_MODULE_2__Link__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__ = __webpack_require__(141);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MemoryRouter", function() { return __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavLink__ = __webpack_require__(144);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "NavLink", function() { return __WEBPACK_IMPORTED_MODULE_4__NavLink__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Prompt__ = __webpack_require__(147);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Prompt", function() { return __WEBPACK_IMPORTED_MODULE_5__Prompt__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(149);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Redirect", function() { return __WEBPACK_IMPORTED_MODULE_6__Redirect__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(60);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Route", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(31);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Router", function() { return __WEBPACK_IMPORTED_MODULE_8__Router__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(155);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "StaticRouter", function() { return __WEBPACK_IMPORTED_MODULE_9__StaticRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Switch__ = __webpack_require__(157);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Switch", function() { return __WEBPACK_IMPORTED_MODULE_10__Switch__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(159);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "matchPath", function() { return __WEBPACK_IMPORTED_MODULE_11__matchPath__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(160);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withRouter", function() { return __WEBPACK_IMPORTED_MODULE_12__withRouter__["a"]; });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /***/ }),
@@ -1474,7 +1474,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(17);
 
-var _reducers = __webpack_require__(6);
+var _reducers = __webpack_require__(7);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -1585,11 +1585,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
-var _reducers = __webpack_require__(6);
+var _reducers = __webpack_require__(7);
 
 var _AddToTeam = __webpack_require__(21);
 
@@ -1849,11 +1849,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
-var _reducers = __webpack_require__(6);
+var _reducers = __webpack_require__(7);
 
 var _SelectTeams = __webpack_require__(163);
 
@@ -2152,7 +2152,7 @@ module.exports = g;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(7);
+var utils = __webpack_require__(8);
 var normalizeHeaderName = __webpack_require__(109);
 
 var DEFAULT_CONTENT_TYPE = {
@@ -2438,7 +2438,7 @@ exports.default = createTransitionManager;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
@@ -2729,11 +2729,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
-var _reducers = __webpack_require__(6);
+var _reducers = __webpack_require__(7);
 
 var _AddToTeam = __webpack_require__(21);
 
@@ -3214,7 +3214,7 @@ var storeShape = __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.shape({
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["a"] = connectAdvanced;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
@@ -4043,7 +4043,7 @@ module.exports = function bind(fn, thisArg) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(7);
+var utils = __webpack_require__(8);
 var settle = __webpack_require__(110);
 var buildURL = __webpack_require__(112);
 var parseHeaders = __webpack_require__(113);
@@ -4479,7 +4479,7 @@ var isExtraneousPopstateEvent = exports.isExtraneousPopstateEvent = function isE
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_invariant__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -4598,7 +4598,7 @@ Link.contextTypes = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
@@ -4823,11 +4823,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
-var _reducers = __webpack_require__(6);
+var _reducers = __webpack_require__(7);
 
 var _AddToTeam = __webpack_require__(21);
 
@@ -4980,11 +4980,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
-var _reducers = __webpack_require__(6);
+var _reducers = __webpack_require__(7);
 
 var _AddToTeam = __webpack_require__(21);
 
@@ -5194,7 +5194,63 @@ var AllPlayers = function (_React$Component) {
 exports.default = AllPlayers;
 
 /***/ }),
-/* 66 */,
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = BattingOrder;
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var lineup = ['---', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+
+function BattingOrder() {
+    return lineup.map(function (spot) {
+        var idx = lineup.indexOf(spot);
+        if (idx === 0) {
+            return _react2.default.createElement(
+                'option',
+                { hidden: true, key: '0' },
+                spot
+            );
+        } else if (idx >= 1 && idx <= 9) {
+            return _react2.default.createElement(
+                'option',
+                { key: idx },
+                spot
+            );
+        } else if (idx >= 10 && idx <= 12) {
+            return _react2.default.createElement(
+                'option',
+                { key: idx },
+                'Bench'
+            );
+        } else if (idx === 13) {
+            return _react2.default.createElement(
+                'option',
+                { key: idx, value: idx },
+                'SP'
+            );
+        } else if (idx >= 14 && idx <= 16) {
+            return _react2.default.createElement(
+                'option',
+                { key: idx, value: idx },
+                'RP'
+            );
+        }
+    });
+}
+
+/***/ }),
 /* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24376,7 +24432,7 @@ function battersReducer() {
 "use strict";
 
 
-var utils = __webpack_require__(7);
+var utils = __webpack_require__(8);
 var bind = __webpack_require__(51);
 var Axios = __webpack_require__(108);
 var defaults = __webpack_require__(28);
@@ -24463,7 +24519,7 @@ function isSlowBuffer (obj) {
 
 
 var defaults = __webpack_require__(28);
-var utils = __webpack_require__(7);
+var utils = __webpack_require__(8);
 var InterceptorManager = __webpack_require__(117);
 var dispatchRequest = __webpack_require__(118);
 
@@ -24548,7 +24604,7 @@ module.exports = Axios;
 "use strict";
 
 
-var utils = __webpack_require__(7);
+var utils = __webpack_require__(8);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -24628,7 +24684,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 "use strict";
 
 
-var utils = __webpack_require__(7);
+var utils = __webpack_require__(8);
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -24703,7 +24759,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 "use strict";
 
 
-var utils = __webpack_require__(7);
+var utils = __webpack_require__(8);
 
 // Headers whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -24763,7 +24819,7 @@ module.exports = function parseHeaders(headers) {
 "use strict";
 
 
-var utils = __webpack_require__(7);
+var utils = __webpack_require__(8);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -24881,7 +24937,7 @@ module.exports = btoa;
 "use strict";
 
 
-var utils = __webpack_require__(7);
+var utils = __webpack_require__(8);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -24941,7 +24997,7 @@ module.exports = (
 "use strict";
 
 
-var utils = __webpack_require__(7);
+var utils = __webpack_require__(8);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -25000,7 +25056,7 @@ module.exports = InterceptorManager;
 "use strict";
 
 
-var utils = __webpack_require__(7);
+var utils = __webpack_require__(8);
 var transformData = __webpack_require__(119);
 var isCancel = __webpack_require__(54);
 var defaults = __webpack_require__(28);
@@ -25093,7 +25149,7 @@ module.exports = function dispatchRequest(config) {
 "use strict";
 
 
-var utils = __webpack_require__(7);
+var utils = __webpack_require__(8);
 
 /**
  * Transform the data for a request or a response
@@ -25733,7 +25789,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(5);
 
 var _Navbar = __webpack_require__(162);
 
@@ -25775,7 +25831,7 @@ var _SetHomeLineup = __webpack_require__(167);
 
 var _SetHomeLineup2 = _interopRequireDefault(_SetHomeLineup);
 
-var _Play = __webpack_require__(169);
+var _Play = __webpack_require__(168);
 
 var _Play2 = _interopRequireDefault(_Play);
 
@@ -25891,7 +25947,7 @@ var _warning = __webpack_require__(2);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _invariant = __webpack_require__(5);
+var _invariant = __webpack_require__(6);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -26268,7 +26324,7 @@ var _warning = __webpack_require__(2);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _invariant = __webpack_require__(5);
+var _invariant = __webpack_require__(6);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -27379,7 +27435,7 @@ module.exports = Array.isArray || function (arr) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_invariant__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27483,7 +27539,7 @@ Prompt.contextTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history__ = __webpack_require__(151);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27614,7 +27670,7 @@ Redirect.contextTypes = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(14);
@@ -27918,7 +27974,7 @@ var createBrowserHistory = function createBrowserHistory() {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(14);
@@ -28418,7 +28474,7 @@ var createMemoryHistory = function createMemoryHistory() {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
@@ -28616,7 +28672,7 @@ StaticRouter.childContextTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__matchPath__ = __webpack_require__(33);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28783,11 +28839,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
-var _reducers = __webpack_require__(6);
+var _reducers = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28924,11 +28980,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
-var _reducers = __webpack_require__(6);
+var _reducers = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29034,11 +29090,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
-var _reducers = __webpack_require__(6);
+var _reducers = __webpack_require__(7);
 
 var _AllBatters = __webpack_require__(20);
 
@@ -29149,11 +29205,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
-var _reducers = __webpack_require__(6);
+var _reducers = __webpack_require__(7);
 
 var _store = __webpack_require__(18);
 
@@ -29280,13 +29336,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
-var _reducers = __webpack_require__(6);
+var _reducers = __webpack_require__(7);
 
-var _SelectLineup = __webpack_require__(168);
+var _SelectLineup = __webpack_require__(66);
 
 var _SelectLineup2 = _interopRequireDefault(_SelectLineup);
 
@@ -29457,13 +29513,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
-var _reducers = __webpack_require__(6);
+var _reducers = __webpack_require__(7);
 
-var _SelectLineup = __webpack_require__(168);
+var _SelectLineup = __webpack_require__(66);
 
 var _SelectLineup2 = _interopRequireDefault(_SelectLineup);
 
@@ -29628,63 +29684,6 @@ exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapSt
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = BattingOrder;
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var lineup = ['---', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-
-function BattingOrder() {
-    return lineup.map(function (spot) {
-        var idx = lineup.indexOf(spot);
-        if (idx === 0) {
-            return _react2.default.createElement(
-                'option',
-                { hidden: true, key: '0' },
-                spot
-            );
-        } else if (idx >= 1 && idx <= 9) {
-            return _react2.default.createElement(
-                'option',
-                { key: idx },
-                spot
-            );
-        } else if (idx >= 10 && idx <= 12) {
-            return _react2.default.createElement(
-                'option',
-                { key: idx },
-                'Bench'
-            );
-        } else if (idx === 13) {
-            return _react2.default.createElement(
-                'option',
-                { key: idx, value: idx },
-                'SP'
-            );
-        } else if (idx >= 14 && idx <= 16) {
-            return _react2.default.createElement(
-                'option',
-                { key: idx, value: idx },
-                'RP'
-            );
-        }
-    });
-}
-
-/***/ }),
-/* 169 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -29692,7 +29691,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
@@ -29726,7 +29725,9 @@ var Play = function (_Component) {
             pitcher: {},
             first: '',
             second: '',
-            third: ''
+            third: '',
+            awayScore: 0,
+            homeScore: 0
         };
         return _this;
     }
@@ -29740,7 +29741,7 @@ var Play = function (_Component) {
                 awayPitcher: this.props.awayLineup[12],
                 homePitcher: this.props.homeLineup[12],
                 batter: this.props.awayLineup.slice(0, 9)[0],
-                pitcher: this.props.awayLineup[12]
+                pitcher: this.props.homeLineup[12]
             });
         }
     }, {
@@ -29759,6 +29760,7 @@ var Play = function (_Component) {
     }, {
         key: 'handlePitch',
         value: function handlePitch() {
+            this.setState({ turn: '' });
             var roll = Math.ceil(Math.random() * 20);
             var roller = {};
 
@@ -29772,17 +29774,18 @@ var Play = function (_Component) {
             var notOuts = ['BB', 'single', 'singlePlus', 'double', 'triple', 'homeRun'];
             var order = [];
 
-            if (this.state.half == 'top') {
-                order = this.state.awayOrder;
-            } else {
-                order = this.state.homeOrder;
-            }
+            // if (this.state.half == 'top') {
+            order = this.state.awayOrder;
+
+            // } else {
+            //     order = this.state.homeOrder;
+            // }
 
             var newOrder = order.slice(1).concat(order.slice(0, 1));
 
             for (var key in roller) {
                 if (outs.includes(key) && roller[key] !== null && roller[key].includes(roll)) {
-                    console.log('out: ', key);
+                    console.log(this.state.batter.name + 'out: ', key);
                     this.setState({
                         result: key,
                         outs: this.state.outs + 1,
@@ -29792,14 +29795,515 @@ var Play = function (_Component) {
                     });
                     return;
                 } else if (notOuts.includes(key) && roller[key] !== null && roller[key].includes(roll)) {
-                    console.log('reached by: ', key);
-                    this.setState({
-                        result: key,
-                        batter: this.state.awayOrder[1],
-                        awayOrder: newOrder
-                    });
-                    return;
+                    if (key == 'BB' && !this.state.first && !this.state.second && !this.state.third) {
+                        //bases empty walk
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if (key == 'BB' && this.state.first && !this.state.second && !this.state.third) {
+                        //man on first walk
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            second: this.state.first,
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if (key == 'BB' && this.state.first && this.state.second && !this.state.third) {
+                        //men on first and second walk
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.second,
+                            second: this.state.first,
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if (key == 'BB' && this.state.first && this.state.second && this.state.third) {
+                        //bases loaded walk
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.second,
+                            second: this.state.first,
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 1
+                        });
+                        return;
+                    } else if (key == 'BB' && !this.state.first && this.state.second && this.state.third) {
+                        //men on second and third walk
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if (key == 'BB' && !this.state.first && this.state.second && !this.state.third) {
+                        //man on second walk
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if (key == 'BB' && !this.state.first && !this.state.second && this.state.third) {
+                        //man on third walk
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if (key == 'BB' && this.state.first && !this.state.second && this.state.third) {
+                        //men on first and third walk
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            second: this.state.first,
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if (key == 'single' && !this.state.first && !this.state.second && !this.state.third) {
+                        //bases empty single
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if ((key == 'single' || key == 'singlePlus') && this.state.first && !this.state.second && !this.state.third) {
+                        //man on first single
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            second: this.state.first,
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if (key == 'single' && !this.state.first && this.state.second && !this.state.third) {
+                        //man on second single
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.second,
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if (key == 'single' && !this.state.first && !this.state.second && this.state.third) {
+                        //man on third single
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: '',
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 1
+                        });
+                        return;
+                    } else if ((key == 'single' || key == 'singlePlus') && this.state.first && this.state.second && !this.state.third) {
+                        //men on first and second single
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.second,
+                            second: this.state.first,
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if ((key == 'single' || key == 'singlePlus') && this.state.first && !this.state.second && this.state.third) {
+                        //men on first and third single
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: '',
+                            second: this.state.first,
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 1
+                        });
+                        return;
+                    } else if (key == 'single' && !this.state.first && this.state.second && this.state.third) {
+                        //men on second and third single
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.second,
+                            second: '',
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 1
+                        });
+                        return;
+                    } else if ((key == 'single' || key == 'singlePlus') && this.state.first && this.state.second && this.state.third) {
+                        //bases loaded single
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.second,
+                            second: this.state.first,
+                            first: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 1
+                        });
+                        return;
+                    } else if (key == 'singlePlus' && !this.state.first && !this.state.second && !this.state.third) {
+                        //bases empty singlePlus
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            second: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if (key == 'singlePlus' && !this.state.first && this.state.second && !this.state.third) {
+                        //man on second singlePlus
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.second,
+                            second: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if (key == 'singlePlus' && !this.state.first && !this.state.second && this.state.third) {
+                        //man on third singlePlus
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            second: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 1
+                        });
+                        return;
+                    } else if (key == 'double' && !this.state.first && !this.state.second && !this.state.third) {
+                        //bases empty double
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            second: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if (key == 'double' && this.state.first && !this.state.second && !this.state.third) {
+                        //man on first double
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.first,
+                            second: this.state.batter,
+                            first: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if (key == 'double' && !this.state.first && this.state.second && !this.state.third) {
+                        //man on second double
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            second: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 1
+                        });
+                        return;
+                    } else if (key == 'double' && !this.state.first && !this.state.second && this.state.third) {
+                        //man on third double
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: '',
+                            second: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 1
+                        });
+                        return;
+                    } else if (key == 'double' && this.state.first && this.state.second && !this.state.third) {
+                        //men on first and second double
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.first,
+                            second: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 1
+                        });
+                        return;
+                    } else if (key == 'double' && this.state.first && !this.state.second && this.state.third) {
+                        //men on first and third double
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.first,
+                            second: this.state.batter,
+                            first: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 1
+                        });
+                        return;
+                    } else if (key == 'double' && !this.state.first && this.state.second && this.state.third) {
+                        //men on second and third double
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: '',
+                            second: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 2
+                        });
+                        return;
+                    } else if (key == 'double' && this.state.first && this.state.second && this.state.third) {
+                        //bases loaded double
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.first,
+                            second: this.state.batter,
+                            first: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 2
+                        });
+                        return;
+                    } else if (key == 'triple' && !this.state.first && !this.state.second && !this.state.third) {
+                        //bases empty triple
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder
+                        });
+                        return;
+                    } else if (key == 'triple' && this.state.first && !this.state.second && !this.state.third) {
+                        //man on first triple
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.batter,
+                            first: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 1
+                        });
+                        return;
+                    } else if (key == 'triple' && !this.state.first && this.state.second && !this.state.third) {
+                        //man on second triple
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.batter,
+                            second: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 1
+                        });
+                        return;
+                    } else if (key == 'triple' && !this.state.first && !this.state.second && this.state.third) {
+                        //man on third triple
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.batter,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 1
+                        });
+                        return;
+                    } else if (key == 'triple' && this.state.first && this.state.second && !this.state.third) {
+                        //men on first and second triple
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.batter,
+                            second: '',
+                            first: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 2
+                        });
+                        return;
+                    } else if (key == 'triple' && this.state.first && !this.state.second && this.state.third) {
+                        //men on first and third triple
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.batter,
+                            first: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 2
+                        });
+                        return;
+                    } else if (key == 'triple' && !this.state.first && this.state.second && this.state.third) {
+                        //men on second and third triple
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.batter,
+                            second: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 2
+                        });
+                        return;
+                    } else if (key == 'triple' && this.state.first && this.state.second && this.state.third) {
+                        //bases loaded triple
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: this.state.batter,
+                            second: '',
+                            first: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 3
+                        });
+                        return;
+                    } else if (key == 'homeRun' && !this.state.first && !this.state.second && !this.state.third) {
+                        //bases empty homeRun
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 1
+                        });
+                        return;
+                    } else if (key == 'homeRun' && this.state.first && !this.state.second && !this.state.third) {
+                        //man on first homeRun
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            first: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 2
+                        });
+                        return;
+                    } else if (key == 'homeRun' && !this.state.first && this.state.second && !this.state.third) {
+                        //man on second homeRun
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            second: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 2
+                        });
+                        return;
+                    } else if (key == 'homeRun' && !this.state.first && !this.state.second && this.state.third) {
+                        //man on third homeRun
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 2
+                        });
+                        return;
+                    } else if (key == 'homeRun' && this.state.first && this.state.second && !this.state.third) {
+                        //men on first and second homeRun
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            second: '',
+                            first: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 3
+                        });
+                        return;
+                    } else if (key == 'homeRun' && this.state.first && !this.state.second && this.state.third) {
+                        //men on first and third homeRun
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: '',
+                            first: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 3
+                        });
+                        return;
+                    } else if (key == 'homeRun' && !this.state.first && this.state.second && this.state.third) {
+                        //men on second and third homeRun
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: '',
+                            second: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 3
+                        });
+                        return;
+                    } else if (key == 'homeRun' && this.state.first && this.state.second && this.state.third) {
+                        //bases loaded homeRun
+                        console.log(this.state.batter.name + 'reached by: ', key);
+                        this.setState({
+                            result: key,
+                            third: '',
+                            second: '',
+                            first: '',
+                            batter: this.state.awayOrder[1],
+                            awayOrder: newOrder,
+                            awayScore: this.state.awayScore + 4
+                        });
+                        return;
+                    }
                 }
+            }
+        }
+    }, {
+        key: 'handleNextInning',
+        value: function handleNextInning() {
+            var newInning = this.state.inning + 1;
+
+            if (this.state.half == 'top') {
+                this.setState({ half: 'bottom', outs: 0, first: '', second: '', third: '' });
+            } else {
+                this.setState({ half: 'top', outs: 0, inning: newInning, first: '', second: '', third: '' });
             }
         }
     }, {
@@ -29826,10 +30330,18 @@ var Play = function (_Component) {
                         'h3',
                         null,
                         'Pitcher: ',
-                        this.state.pitcher && this.state.pitcher.name
+                        this.state.pitcher.name
                     )
                 ),
-                _react2.default.createElement(
+                this.state.outs == 3 ? _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        'button',
+                        { onClick: this.handleNextInning.bind(this) },
+                        'Next inning'
+                    )
+                ) : _react2.default.createElement(
                     'div',
                     null,
                     _react2.default.createElement(
@@ -29855,6 +30367,16 @@ var Play = function (_Component) {
                     _react2.default.createElement(
                         'h3',
                         null,
+                        'Inning: ',
+                        this.state.half + ' ' + this.state.inning
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        'h3',
+                        null,
                         'Outs: ',
                         this.state.outs
                     )
@@ -29865,7 +30387,8 @@ var Play = function (_Component) {
                     _react2.default.createElement(
                         'h3',
                         null,
-                        'First: '
+                        'First: ',
+                        this.state.first.name
                     )
                 ),
                 _react2.default.createElement(
@@ -29874,7 +30397,8 @@ var Play = function (_Component) {
                     _react2.default.createElement(
                         'h3',
                         null,
-                        'Second: '
+                        'Second: ',
+                        this.state.second.name
                     )
                 ),
                 _react2.default.createElement(
@@ -29883,7 +30407,29 @@ var Play = function (_Component) {
                     _react2.default.createElement(
                         'h3',
                         null,
-                        'Third: '
+                        'Third: ',
+                        this.state.third.name
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Scoreboard'
+                    ),
+                    _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Away: ',
+                        this.state.awayScore
+                    ),
+                    _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Home: ',
+                        this.state.homeScore
                     )
                 )
             );
