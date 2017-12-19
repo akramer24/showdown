@@ -5,6 +5,10 @@ import pitchers from './pitchers';
 import singlePitcher from './singlePitcher';
 import users from './users';
 import singleUser from './singleUser';
+import awayTeam from './awayTeam';
+import homeTeam from './homeTeam';
+import awayLineup from './awayLineup';
+import homeLineup from './homeLineup';
 
 const reducer = combineReducers({
     batters,
@@ -12,7 +16,11 @@ const reducer = combineReducers({
     pitchers,
     singlePitcher,
     users,
-    singleUser
+    singleUser,
+    awayTeam,
+    homeTeam,
+    awayLineup,
+    homeLineup
 });
 
 export default reducer;
@@ -23,3 +31,7 @@ export * from './pitchers';
 export * from './singlePitcher';
 export * from './users';
 export * from './singleUser';
+export * from './awayTeam';
+export * from './homeTeam';
+export * from './awayLineup';
+export * from './homeLineup';

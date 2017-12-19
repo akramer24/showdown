@@ -8,6 +8,8 @@ import SinglePitcher from './SinglePitcher';
 import AllPlayers from './AllPlayers';
 import UserTeam from './UserTeam';
 import EnterGame from './EnterGame';
+import SetAwayLineup from './SetAwayLineup';
+import SetHomeLineup from './SetHomeLineup';
 
 export default function Main() {
     return (
@@ -16,6 +18,8 @@ export default function Main() {
             <Navbar />
                 <Switch>
                     <Route exact path='/' component={EnterGame} />
+                    <Route exact path='/away-lineup' component={SetAwayLineup} />
+                    <Route exact path='/home-lineup' component={SetHomeLineup} />
                     <Route exact path='/players' component={AllPlayers} />
                     <Route exact path='/players/batters' component={AllBatters} />
                     <Route path='/players/batters/:batterId' component={SingleBatter} />

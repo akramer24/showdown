@@ -1,27 +1,21 @@
 import React, { Component } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchUsers } from '../reducers';
+import { fetchUsers, setAwayTeam, setHomeTeam } from '../reducers';
+import store from '../store';
 
 class PickTeams extends Component {
-    constructor() {
-        super();
-        this.state = {
-            awayUserId: null,
-            homeUserId: null
-        }
-    }
 
     componentDidMount() {
         this.props.loadUsers();
     }
 
     handleSelectAwayUser(event) {
-        this.setState({ awayUserId: event.target.value });
+        store.dispatch(setAwayTeam(event.target.value));        
     }
 
     handleSelectHomeUser(event) {
-        this.setState({ homeUserId: event.target.value });
+        store.dispatch(setHomeTeam(event.target.value));        
     }
 
     render() {
@@ -38,7 +32,7 @@ class PickTeams extends Component {
                     }
                 </select>
 
-                <NavLink to='/play'><button>Play!</button></NavLink>
+                <NavLink to='/away-lineup'><button>Play!</button></NavLink>
 
                 Home: <select onChange={this.handleSelectHomeUser.bind(this)}>
                     <option defaultValue defaultChecked hidden>Select team</option>
