@@ -29719,6 +29719,7 @@ var Play = function (_Component) {
             outs: 0,
             awayOrder: [],
             homeOrder: [],
+            currentOrder: [],
             awayPitcher: {},
             homePitcher: {},
             batter: {},
@@ -29727,7 +29728,8 @@ var Play = function (_Component) {
             second: '',
             third: '',
             awayScore: 0,
-            homeScore: 0
+            homeScore: 0,
+            currentScore: 0
         };
         return _this;
     }
@@ -29738,6 +29740,7 @@ var Play = function (_Component) {
             this.setState({
                 awayOrder: this.props.awayLineup.slice(0, 9),
                 homeOrder: this.props.homeLineup.slice(0, 9),
+                currentOrder: this.props.awayLineup.slice(0, 9),
                 awayPitcher: this.props.awayLineup[12],
                 homePitcher: this.props.homeLineup[12],
                 batter: this.props.awayLineup.slice(0, 9)[0],
@@ -29775,13 +29778,13 @@ var Play = function (_Component) {
             var order = [];
 
             // if (this.state.half == 'top') {
-            order = this.state.awayOrder;
+            // order = this.state.awayOrder;
 
             // } else {
             //     order = this.state.homeOrder;
             // }
-
-            var newOrder = order.slice(1).concat(order.slice(0, 1));
+            var prevBatter = this.state.currentOrder.slice(0, 1);
+            var newOrder = this.state.currentOrder.slice(1).concat(prevBatter);
 
             for (var key in roller) {
                 if (outs.includes(key) && roller[key] !== null && roller[key].includes(roll)) {
@@ -29789,8 +29792,8 @@ var Play = function (_Component) {
                     this.setState({
                         result: key,
                         outs: this.state.outs + 1,
-                        batter: this.state.awayOrder[1],
-                        awayOrder: newOrder
+                        batter: this.state.currentOrder[1],
+                        currentOrder: newOrder
 
                     });
                     return;
@@ -29801,8 +29804,8 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if (key == 'BB' && this.state.first && !this.state.second && !this.state.third) {
@@ -29812,8 +29815,8 @@ var Play = function (_Component) {
                             result: key,
                             second: this.state.first,
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if (key == 'BB' && this.state.first && this.state.second && !this.state.third) {
@@ -29824,8 +29827,8 @@ var Play = function (_Component) {
                             third: this.state.second,
                             second: this.state.first,
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if (key == 'BB' && this.state.first && this.state.second && this.state.third) {
@@ -29836,9 +29839,9 @@ var Play = function (_Component) {
                             third: this.state.second,
                             second: this.state.first,
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 1
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 1
                         });
                         return;
                     } else if (key == 'BB' && !this.state.first && this.state.second && this.state.third) {
@@ -29847,8 +29850,8 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if (key == 'BB' && !this.state.first && this.state.second && !this.state.third) {
@@ -29857,8 +29860,8 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if (key == 'BB' && !this.state.first && !this.state.second && this.state.third) {
@@ -29867,8 +29870,8 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if (key == 'BB' && this.state.first && !this.state.second && this.state.third) {
@@ -29878,8 +29881,8 @@ var Play = function (_Component) {
                             result: key,
                             second: this.state.first,
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if (key == 'single' && !this.state.first && !this.state.second && !this.state.third) {
@@ -29888,8 +29891,8 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if ((key == 'single' || key == 'singlePlus') && this.state.first && !this.state.second && !this.state.third) {
@@ -29899,8 +29902,8 @@ var Play = function (_Component) {
                             result: key,
                             second: this.state.first,
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if (key == 'single' && !this.state.first && this.state.second && !this.state.third) {
@@ -29909,9 +29912,10 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             third: this.state.second,
+                            second: '',
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if (key == 'single' && !this.state.first && !this.state.second && this.state.third) {
@@ -29921,9 +29925,9 @@ var Play = function (_Component) {
                             result: key,
                             third: '',
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 1
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 1
                         });
                         return;
                     } else if ((key == 'single' || key == 'singlePlus') && this.state.first && this.state.second && !this.state.third) {
@@ -29934,8 +29938,8 @@ var Play = function (_Component) {
                             third: this.state.second,
                             second: this.state.first,
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if ((key == 'single' || key == 'singlePlus') && this.state.first && !this.state.second && this.state.third) {
@@ -29946,9 +29950,9 @@ var Play = function (_Component) {
                             third: '',
                             second: this.state.first,
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 1
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 1
                         });
                         return;
                     } else if (key == 'single' && !this.state.first && this.state.second && this.state.third) {
@@ -29959,9 +29963,9 @@ var Play = function (_Component) {
                             third: this.state.second,
                             second: '',
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 1
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 1
                         });
                         return;
                     } else if ((key == 'single' || key == 'singlePlus') && this.state.first && this.state.second && this.state.third) {
@@ -29972,9 +29976,9 @@ var Play = function (_Component) {
                             third: this.state.second,
                             second: this.state.first,
                             first: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 1
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 1
                         });
                         return;
                     } else if (key == 'singlePlus' && !this.state.first && !this.state.second && !this.state.third) {
@@ -29983,8 +29987,8 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             second: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if (key == 'singlePlus' && !this.state.first && this.state.second && !this.state.third) {
@@ -29994,8 +29998,8 @@ var Play = function (_Component) {
                             result: key,
                             third: this.state.second,
                             second: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if (key == 'singlePlus' && !this.state.first && !this.state.second && this.state.third) {
@@ -30004,9 +30008,9 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             second: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 1
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 1
                         });
                         return;
                     } else if (key == 'double' && !this.state.first && !this.state.second && !this.state.third) {
@@ -30015,8 +30019,8 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             second: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if (key == 'double' && this.state.first && !this.state.second && !this.state.third) {
@@ -30027,8 +30031,8 @@ var Play = function (_Component) {
                             third: this.state.first,
                             second: this.state.batter,
                             first: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if (key == 'double' && !this.state.first && this.state.second && !this.state.third) {
@@ -30037,9 +30041,9 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             second: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 1
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 1
                         });
                         return;
                     } else if (key == 'double' && !this.state.first && !this.state.second && this.state.third) {
@@ -30049,9 +30053,9 @@ var Play = function (_Component) {
                             result: key,
                             third: '',
                             second: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 1
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 1
                         });
                         return;
                     } else if (key == 'double' && this.state.first && this.state.second && !this.state.third) {
@@ -30061,9 +30065,9 @@ var Play = function (_Component) {
                             result: key,
                             third: this.state.first,
                             second: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 1
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 1
                         });
                         return;
                     } else if (key == 'double' && this.state.first && !this.state.second && this.state.third) {
@@ -30074,9 +30078,9 @@ var Play = function (_Component) {
                             third: this.state.first,
                             second: this.state.batter,
                             first: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 1
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 1
                         });
                         return;
                     } else if (key == 'double' && !this.state.first && this.state.second && this.state.third) {
@@ -30086,9 +30090,9 @@ var Play = function (_Component) {
                             result: key,
                             third: '',
                             second: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 2
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 2
                         });
                         return;
                     } else if (key == 'double' && this.state.first && this.state.second && this.state.third) {
@@ -30099,9 +30103,9 @@ var Play = function (_Component) {
                             third: this.state.first,
                             second: this.state.batter,
                             first: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 2
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 2
                         });
                         return;
                     } else if (key == 'triple' && !this.state.first && !this.state.second && !this.state.third) {
@@ -30110,8 +30114,8 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             third: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder
                         });
                         return;
                     } else if (key == 'triple' && this.state.first && !this.state.second && !this.state.third) {
@@ -30121,9 +30125,9 @@ var Play = function (_Component) {
                             result: key,
                             third: this.state.batter,
                             first: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 1
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 1
                         });
                         return;
                     } else if (key == 'triple' && !this.state.first && this.state.second && !this.state.third) {
@@ -30133,9 +30137,9 @@ var Play = function (_Component) {
                             result: key,
                             third: this.state.batter,
                             second: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 1
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 1
                         });
                         return;
                     } else if (key == 'triple' && !this.state.first && !this.state.second && this.state.third) {
@@ -30144,9 +30148,9 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             third: this.state.batter,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 1
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 1
                         });
                         return;
                     } else if (key == 'triple' && this.state.first && this.state.second && !this.state.third) {
@@ -30157,9 +30161,9 @@ var Play = function (_Component) {
                             third: this.state.batter,
                             second: '',
                             first: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 2
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 2
                         });
                         return;
                     } else if (key == 'triple' && this.state.first && !this.state.second && this.state.third) {
@@ -30169,9 +30173,9 @@ var Play = function (_Component) {
                             result: key,
                             third: this.state.batter,
                             first: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 2
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 2
                         });
                         return;
                     } else if (key == 'triple' && !this.state.first && this.state.second && this.state.third) {
@@ -30181,9 +30185,9 @@ var Play = function (_Component) {
                             result: key,
                             third: this.state.batter,
                             second: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 2
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 2
                         });
                         return;
                     } else if (key == 'triple' && this.state.first && this.state.second && this.state.third) {
@@ -30194,9 +30198,9 @@ var Play = function (_Component) {
                             third: this.state.batter,
                             second: '',
                             first: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 3
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 3
                         });
                         return;
                     } else if (key == 'homeRun' && !this.state.first && !this.state.second && !this.state.third) {
@@ -30204,9 +30208,9 @@ var Play = function (_Component) {
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
                             result: key,
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 1
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 1
                         });
                         return;
                     } else if (key == 'homeRun' && this.state.first && !this.state.second && !this.state.third) {
@@ -30215,9 +30219,9 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             first: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 2
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 2
                         });
                         return;
                     } else if (key == 'homeRun' && !this.state.first && this.state.second && !this.state.third) {
@@ -30226,9 +30230,9 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             second: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 2
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 2
                         });
                         return;
                     } else if (key == 'homeRun' && !this.state.first && !this.state.second && this.state.third) {
@@ -30237,9 +30241,9 @@ var Play = function (_Component) {
                         this.setState({
                             result: key,
                             third: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 2
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 2
                         });
                         return;
                     } else if (key == 'homeRun' && this.state.first && this.state.second && !this.state.third) {
@@ -30249,9 +30253,9 @@ var Play = function (_Component) {
                             result: key,
                             second: '',
                             first: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 3
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 3
                         });
                         return;
                     } else if (key == 'homeRun' && this.state.first && !this.state.second && this.state.third) {
@@ -30261,9 +30265,9 @@ var Play = function (_Component) {
                             result: key,
                             third: '',
                             first: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 3
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 3
                         });
                         return;
                     } else if (key == 'homeRun' && !this.state.first && this.state.second && this.state.third) {
@@ -30273,9 +30277,9 @@ var Play = function (_Component) {
                             result: key,
                             third: '',
                             second: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 3
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 3
                         });
                         return;
                     } else if (key == 'homeRun' && this.state.first && this.state.second && this.state.third) {
@@ -30286,9 +30290,9 @@ var Play = function (_Component) {
                             third: '',
                             second: '',
                             first: '',
-                            batter: this.state.awayOrder[1],
-                            awayOrder: newOrder,
-                            awayScore: this.state.awayScore + 4
+                            batter: this.state.currentOrder[1],
+                            currentOrder: newOrder,
+                            currentScore: this.state.currentScore + 4
                         });
                         return;
                     }
@@ -30299,140 +30303,186 @@ var Play = function (_Component) {
         key: 'handleNextInning',
         value: function handleNextInning() {
             var newInning = this.state.inning + 1;
+            console.log('new half inning');
 
             if (this.state.half == 'top') {
-                this.setState({ half: 'bottom', outs: 0, first: '', second: '', third: '' });
-            } else {
-                this.setState({ half: 'top', outs: 0, inning: newInning, first: '', second: '', third: '' });
+                this.setState({
+                    awayOrder: this.state.currentOrder,
+                    half: 'bottom',
+                    outs: 0,
+                    first: '',
+                    second: '',
+                    third: '',
+                    currentOrder: this.state.homeOrder,
+                    batter: this.state.homeOrder[0],
+                    pitcher: this.props.awayLineup[12],
+                    awayScore: this.state.currentScore,
+                    currentScore: this.state.homeScore
+                });
+            } else if (this.state.half == 'bottom') {
+                this.setState({
+                    homeOrder: this.state.currentOrder,
+                    half: 'top',
+                    outs: 0,
+                    inning: newInning,
+                    first: '',
+                    second: '',
+                    third: '',
+                    currentOrder: this.state.awayOrder,
+                    batter: this.state.awayOrder[0],
+                    pitcher: this.props.homeLineup[12],
+                    homeScore: this.state.currentScore,
+                    currentScore: this.state.awayScore
+                });
             }
         }
     }, {
         key: 'render',
         value: function render() {
-
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
+            if (this.state.inning >= 9 && this.state.half == 'bottom' && this.state.homeScore > this.state.awayScore) {
+                return _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Home wins!'
+                );
+            } else if (this.state.inning >= 10 && this.state.half == 'top' && this.state.homeScore < this.state.awayScore) {
+                return _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Away wins!'
+                );
+            } else {
+                return _react2.default.createElement(
                     'div',
                     null,
                     _react2.default.createElement(
-                        'h3',
+                        'div',
                         null,
-                        'Batter: ',
-                        this.state.batter.name
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'h3',
-                        null,
-                        'Pitcher: ',
-                        this.state.pitcher.name
-                    )
-                ),
-                this.state.outs == 3 ? _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'button',
-                        { onClick: this.handleNextInning.bind(this) },
-                        'Next inning'
-                    )
-                ) : _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'button',
-                        { onClick: this.handleRoll.bind(this) },
-                        'Roll for turn'
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'Batter: ',
+                            this.state.batter.name
+                        )
                     ),
                     _react2.default.createElement(
-                        'h4',
+                        'div',
                         null,
-                        'Turn: ',
-                        this.state.turn
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'Pitcher: ',
+                            this.state.pitcher.name
+                        )
+                    ),
+                    this.state.outs == 3 ? _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'button',
+                            { onClick: this.handleNextInning.bind(this) },
+                            'Next inning'
+                        )
+                    ) : _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'button',
+                            { onClick: this.handleRoll.bind(this) },
+                            'Roll for turn'
+                        ),
+                        _react2.default.createElement(
+                            'h4',
+                            null,
+                            'Turn: ',
+                            this.state.turn
+                        ),
+                        _react2.default.createElement(
+                            'button',
+                            { onClick: this.handlePitch.bind(this) },
+                            'Pitch'
+                        )
                     ),
                     _react2.default.createElement(
-                        'button',
-                        { onClick: this.handlePitch.bind(this) },
-                        'Pitch'
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'h3',
+                        'div',
                         null,
-                        'Inning: ',
-                        this.state.half + ' ' + this.state.inning
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'h3',
-                        null,
-                        'Outs: ',
-                        this.state.outs
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'h3',
-                        null,
-                        'First: ',
-                        this.state.first.name
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'h3',
-                        null,
-                        'Second: ',
-                        this.state.second.name
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'h3',
-                        null,
-                        'Third: ',
-                        this.state.third.name
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'h1',
-                        null,
-                        'Scoreboard'
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'Inning: ',
+                            this.state.half + ' ' + this.state.inning
+                        )
                     ),
                     _react2.default.createElement(
-                        'h3',
+                        'div',
                         null,
-                        'Away: ',
-                        this.state.awayScore
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'Outs: ',
+                            this.state.outs
+                        )
                     ),
                     _react2.default.createElement(
-                        'h3',
+                        'div',
                         null,
-                        'Home: ',
-                        this.state.homeScore
-                    )
-                )
-            );
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'First: ',
+                            this.state.first.name
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'Second: ',
+                            this.state.second.name
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'Third: ',
+                            this.state.third.name
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'h1',
+                            null,
+                            'Scoreboard'
+                        ),
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'Away: ',
+                            this.state.half == 'top' ? this.state.currentScore : this.state.awayScore
+                        ),
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'Home: ',
+                            this.state.half == 'bottom' ? this.state.currentScore : this.state.homeScore
+                        )
+                    ),
+                    this.state.currentOrder.map(function (batter) {
+                        return _react2.default.createElement(
+                            'h4',
+                            { key: batter.id },
+                            batter.name
+                        );
+                    })
+                );
+            }
         }
     }]);
 
