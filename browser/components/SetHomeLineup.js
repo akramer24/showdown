@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchUserBatters, fetchUserPitchers, fetchUser, setAwayLineup, setHomeLineup } from '../reducers';
+import { fetchUserBatters, fetchUserPitchers, fetchUser, setHomeLineup, setHomeTeamName } from '../reducers';
 import SelectLineup from './SelectLineup';
 import store from '../store';
 
@@ -26,6 +26,7 @@ class SetLineups extends Component {
 
     handleSubmit() {
        store.dispatch(setHomeLineup(this.order));
+       store.dispatch(setHomeTeamName(this.props.singleUser.teamName));
     }
 
     render() {

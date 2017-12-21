@@ -9,6 +9,8 @@ import awayTeam from './awayTeam';
 import homeTeam from './homeTeam';
 import awayLineup from './awayLineup';
 import homeLineup from './homeLineup';
+import awayTeamName from './awayTeamName';
+import homeTeamName from './homeTeamName';
 
 const reducer = combineReducers({
     batters,
@@ -20,7 +22,9 @@ const reducer = combineReducers({
     awayTeam,
     homeTeam,
     awayLineup,
-    homeLineup
+    homeLineup,
+    awayTeamName,
+    homeTeamName
 });
 
 export default reducer;
@@ -35,3 +39,5 @@ export * from './awayTeam';
 export * from './homeTeam';
 export * from './awayLineup';
 export * from './homeLineup';
+export * from './awayTeamName';
+export * from './homeTeamName';

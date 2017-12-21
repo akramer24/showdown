@@ -192,6 +192,46 @@ body {
     left: 32px;
 }
 
+#home button {
+    position: absolute;
+    left: 165px;
+    top: 50px;
+}
+
+#mound button {
+    position: absolute;
+    left: 165px;
+    top: 60px;
+}
+
+#batter-game-attributes {
+    list-style: none;
+    font-size: 12px;
+    position: absolute;
+    top: -43px;
+    left: 31px;
+    color: black;
+    text-shadow: none;
+    background-color: #efe5e5;
+    padding: 5px;
+    width: 125px;
+    height: 136px;
+}
+
+#pitcher-game-attributes {
+    list-style: none;
+    font-size: 12px;
+    position: absolute;
+    top: -33px;
+    left: 32px;
+    color: black;
+    text-shadow: none;
+    background-color: #efe5e5;
+    padding: 5px;
+    width: 125px;
+    height: 136px;
+}
+
 #mound {
     position: absolute;
     left: 396px;
@@ -307,4 +347,9 @@ body {
     background-color: white;
     height: 50px;
     width: 50px;
+}
+
+.lineup-prefix {
+    color: #e60909;
+    text-shadow: 1px 1px 1px #dcd7d7;
 }

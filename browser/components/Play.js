@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PlayerAttributes from './PlayerAttributes';
 
 class Play extends Component {
 
@@ -26,7 +27,11 @@ class Play extends Component {
             third: '',
             awayScore: 0,
             homeScore: 0,
-            currentScore: 0
+            currentScore: 0,
+            awayTeam: '',
+            homeTeam: '',
+            batterAttributes: false,
+            pitcherAttributes: false
         }
     }
 
@@ -39,7 +44,9 @@ class Play extends Component {
                 awayPitcher: this.props.awayLineup[12],
                 homePitcher: this.props.homeLineup[12],
                 batter: this.props.awayLineup.slice(0, 9)[0],
-                pitcher: this.props.homeLineup[12]
+                pitcher: this.props.homeLineup[12],
+                awayTeam: this.props.awayTeamName,
+                homeTeam: this.props.homeTeamName
             }
         )
     }
@@ -642,6 +649,16 @@ class Play extends Component {
         }
     }
 
+    handleBatterAttributes() {
+        const newState = !this.state.batterAttributes;
+        this.setState({ batterAttributes: newState });
+        console.log('clicked');
+    }
+
+    handlePitcherAttributes() {
+        this.setState({ pitcherAttributes: !this.state.pitcherAttributes });
+    }
+
     render() {
         if (this.state.inning >= 9 && this.state.half == 'bottom' && this.state.homeScore > this.state.awayScore) {
             return (
@@ -698,12 +715,32 @@ class Play extends Component {
                         }
                     </div>
                     <div id='diamond'>
-                        <div id='home'>
-                            <img src={this.state.batter.image} id='home-image' />
-                        </div>
-                        <div id='mound'>
-                            <img src={this.state.pitcher.image} id='mound-image' />
-                        </div>
+                        {
+                            this.state.batterAttributes
+                                ?
+                                <div id='home'>
+                                    <button onClick={this.handleBatterAttributes.bind(this)}>See card</button>
+                                    <PlayerAttributes batter={this.state.batter} />
+                                </div>
+                                :
+                                <div id='home'>
+                                    <button onClick={this.handleBatterAttributes.bind(this)}>See attributes</button>
+                                    <img src={this.state.batter.image} id='home-image' />
+                                </div>
+                        }
+                        {
+                            this.state.pitcherAttributes
+                                ?
+                                <div id='mound'>
+                                    <button onClick={this.handlePitcherAttributes.bind(this)}>See card</button>
+                                    <PlayerAttributes pitcher={this.state.pitcher} />
+                                </div>
+                                :
+                                <div id='mound'>
+                                    <button onClick={this.handlePitcherAttributes.bind(this)}>See attributes</button>
+                                    <img src={this.state.pitcher.image} id='mound-image' />
+                                </div>
+                        }
                         <div id='first-basepath'></div>
                         <div id='first'>
                             <div id='first-base' className='base'></div>
@@ -743,7 +780,7 @@ class Play extends Component {
                     </div>
                     <div id='scoreboard'>
                         <h1>Scoreboard</h1>
-                        <h3>Away: {
+                        <h3>{this.state.awayTeam}: {
                             this.state.half == 'top'
                                 ?
                                 this.state.currentScore
@@ -751,7 +788,7 @@ class Play extends Component {
                                 this.state.awayScore
                         }
                         </h3>
-                        <h3>Home: {
+                        <h3>{this.state.homeTeam}: {
                             this.state.half == 'bottom'
                                 ?
                                 this.state.currentScore
@@ -763,13 +800,19 @@ class Play extends Component {
                         <h3>Outs: {this.state.outs}</h3>
                     </div>
                     <div>
-                        <h3>Lineup</h3>
+                        {
+                            this.state.half == 'top'
+                                ?
+                                <h3>{this.state.awayTeam}</h3>
+                                :
+                                <h3>{this.state.homeTeam}</h3>
+                        }
                         {
                             this.state.currentOrder.map((batter, idx) => {
                                 if (idx === 0) {
-                                    return <h4 key={batter.id}>At Bat: {batter.name}</h4>
+                                    return <h4 key={batter.id}><span className='lineup-prefix'>At Bat: </span>{batter.name}</h4>
                                 } else if (idx === 1) {
-                                    return <h4 key={batter.id}>On Deck: {batter.name}</h4>
+                                    return <h4 key={batter.id}><span className='lineup-prefix'>On Deck: </span>{batter.name}</h4>
                                 } else {
                                     return <h4 key={batter.id}>{batter.name}</h4>
                                 }
@@ -785,7 +828,9 @@ class Play extends Component {
 const mapStateToProps = (state) => {
     return {
         awayLineup: state.awayLineup,
-        homeLineup: state.homeLineup
+        homeLineup: state.homeLineup,
+        awayTeamName: state.awayTeamName,
+        homeTeamName: state.homeTeamName
     }
 }
 

@@ -17,7 +17,6 @@ class PickTeams extends Component {
 
     handleSelectUser(event) {
         this.setState({ userId: event.target.value });
-        // this.props.history.push(`/team/${id}`);
     }
 
     render() {

@@ -639,6 +639,30 @@ Object.keys(_homeLineup).forEach(function (key) {
     });
 });
 
+var _awayTeamName = __webpack_require__(169);
+
+Object.keys(_awayTeamName).forEach(function (key) {
+    if (key === "default" || key === "__esModule") return;
+    Object.defineProperty(exports, key, {
+        enumerable: true,
+        get: function get() {
+            return _awayTeamName[key];
+        }
+    });
+});
+
+var _homeTeamName = __webpack_require__(170);
+
+Object.keys(_homeTeamName).forEach(function (key) {
+    if (key === "default" || key === "__esModule") return;
+    Object.defineProperty(exports, key, {
+        enumerable: true,
+        get: function get() {
+            return _homeTeamName[key];
+        }
+    });
+});
+
 var _redux = __webpack_require__(17);
 
 var _batters2 = _interopRequireDefault(_batters);
@@ -661,6 +685,10 @@ var _awayLineup2 = _interopRequireDefault(_awayLineup);
 
 var _homeLineup2 = _interopRequireDefault(_homeLineup);
 
+var _awayTeamName2 = _interopRequireDefault(_awayTeamName);
+
+var _homeTeamName2 = _interopRequireDefault(_homeTeamName);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var reducer = (0, _redux.combineReducers)({
@@ -673,7 +701,9 @@ var reducer = (0, _redux.combineReducers)({
     awayTeam: _awayTeam2.default,
     homeTeam: _homeTeam2.default,
     awayLineup: _awayLineup2.default,
-    homeLineup: _homeLineup2.default
+    homeLineup: _homeLineup2.default,
+    awayTeamName: _awayTeamName2.default,
+    homeTeamName: _homeTeamName2.default
 });
 
 exports.default = reducer;
@@ -29017,7 +29047,6 @@ var PickTeams = function (_Component) {
         key: 'handleSelectUser',
         value: function handleSelectUser(event) {
             this.setState({ userId: event.target.value });
-            // this.props.history.push(`/team/${id}`);
         }
     }, {
         key: 'render',
@@ -29388,6 +29417,7 @@ var SetLineups = function (_Component) {
         key: 'handleSubmit',
         value: function handleSubmit() {
             _store2.default.dispatch((0, _reducers.setAwayLineup)(this.order));
+            _store2.default.dispatch((0, _reducers.setAwayTeamName)(this.props.singleUser.teamName));
         }
     }, {
         key: 'render',
@@ -29566,6 +29596,7 @@ var SetLineups = function (_Component) {
         key: 'handleSubmit',
         value: function handleSubmit() {
             _store2.default.dispatch((0, _reducers.setHomeLineup)(this.order));
+            _store2.default.dispatch((0, _reducers.setHomeTeamName)(this.props.singleUser.teamName));
         }
     }, {
         key: 'render',
@@ -29695,6 +29726,10 @@ var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
+var _PlayerAttributes = __webpack_require__(171);
+
+var _PlayerAttributes2 = _interopRequireDefault(_PlayerAttributes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29731,7 +29766,11 @@ var Play = function (_Component) {
             third: '',
             awayScore: 0,
             homeScore: 0,
-            currentScore: 0
+            currentScore: 0,
+            awayTeam: '',
+            homeTeam: '',
+            batterAttributes: false,
+            pitcherAttributes: false
         };
         return _this;
     }
@@ -29746,7 +29785,9 @@ var Play = function (_Component) {
                 awayPitcher: this.props.awayLineup[12],
                 homePitcher: this.props.homeLineup[12],
                 batter: this.props.awayLineup.slice(0, 9)[0],
-                pitcher: this.props.homeLineup[12]
+                pitcher: this.props.homeLineup[12],
+                awayTeam: this.props.awayTeamName,
+                homeTeam: this.props.homeTeamName
             });
         }
     }, {
@@ -30351,6 +30392,18 @@ var Play = function (_Component) {
             }
         }
     }, {
+        key: 'handleBatterAttributes',
+        value: function handleBatterAttributes() {
+            var newState = !this.state.batterAttributes;
+            this.setState({ batterAttributes: newState });
+            console.log('clicked');
+        }
+    }, {
+        key: 'handlePitcherAttributes',
+        value: function handlePitcherAttributes() {
+            this.setState({ pitcherAttributes: !this.state.pitcherAttributes });
+        }
+    }, {
         key: 'render',
         value: function render() {
             if (this.state.inning >= 9 && this.state.half == 'bottom' && this.state.homeScore > this.state.awayScore) {
@@ -30433,14 +30486,42 @@ var Play = function (_Component) {
                     _react2.default.createElement(
                         'div',
                         { id: 'diamond' },
-                        _react2.default.createElement(
+                        this.state.batterAttributes ? _react2.default.createElement(
                             'div',
                             { id: 'home' },
+                            _react2.default.createElement(
+                                'button',
+                                { onClick: this.handleBatterAttributes.bind(this) },
+                                'See card'
+                            ),
+                            _react2.default.createElement(_PlayerAttributes2.default, { batter: this.state.batter })
+                        ) : _react2.default.createElement(
+                            'div',
+                            { id: 'home' },
+                            _react2.default.createElement(
+                                'button',
+                                { onClick: this.handleBatterAttributes.bind(this) },
+                                'See attributes'
+                            ),
                             _react2.default.createElement('img', { src: this.state.batter.image, id: 'home-image' })
                         ),
-                        _react2.default.createElement(
+                        this.state.pitcherAttributes ? _react2.default.createElement(
                             'div',
                             { id: 'mound' },
+                            _react2.default.createElement(
+                                'button',
+                                { onClick: this.handlePitcherAttributes.bind(this) },
+                                'See card'
+                            ),
+                            _react2.default.createElement(_PlayerAttributes2.default, { pitcher: this.state.pitcher })
+                        ) : _react2.default.createElement(
+                            'div',
+                            { id: 'mound' },
+                            _react2.default.createElement(
+                                'button',
+                                { onClick: this.handlePitcherAttributes.bind(this) },
+                                'See attributes'
+                            ),
                             _react2.default.createElement('img', { src: this.state.pitcher.image, id: 'mound-image' })
                         ),
                         _react2.default.createElement('div', { id: 'first-basepath' }),
@@ -30479,13 +30560,15 @@ var Play = function (_Component) {
                         _react2.default.createElement(
                             'h3',
                             null,
-                            'Away: ',
+                            this.state.awayTeam,
+                            ': ',
                             this.state.half == 'top' ? this.state.currentScore : this.state.awayScore
                         ),
                         _react2.default.createElement(
                             'h3',
                             null,
-                            'Home: ',
+                            this.state.homeTeam,
+                            ': ',
                             this.state.half == 'bottom' ? this.state.currentScore : this.state.homeScore
                         ),
                         _react2.default.createElement(
@@ -30504,24 +30587,36 @@ var Play = function (_Component) {
                     _react2.default.createElement(
                         'div',
                         null,
-                        _react2.default.createElement(
+                        this.state.half == 'top' ? _react2.default.createElement(
                             'h3',
                             null,
-                            'Lineup'
+                            this.state.awayTeam
+                        ) : _react2.default.createElement(
+                            'h3',
+                            null,
+                            this.state.homeTeam
                         ),
                         this.state.currentOrder.map(function (batter, idx) {
                             if (idx === 0) {
                                 return _react2.default.createElement(
                                     'h4',
                                     { key: batter.id },
-                                    'At Bat: ',
+                                    _react2.default.createElement(
+                                        'span',
+                                        { className: 'lineup-prefix' },
+                                        'At Bat: '
+                                    ),
                                     batter.name
                                 );
                             } else if (idx === 1) {
                                 return _react2.default.createElement(
                                     'h4',
                                     { key: batter.id },
-                                    'On Deck: ',
+                                    _react2.default.createElement(
+                                        'span',
+                                        { className: 'lineup-prefix' },
+                                        'On Deck: '
+                                    ),
                                     batter.name
                                 );
                             } else {
@@ -30544,11 +30639,255 @@ var Play = function (_Component) {
 var mapStateToProps = function mapStateToProps(state) {
     return {
         awayLineup: state.awayLineup,
-        homeLineup: state.homeLineup
+        homeLineup: state.homeLineup,
+        awayTeamName: state.awayTeamName,
+        homeTeamName: state.homeTeamName
     };
 };
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps)(Play));
+
+/***/ }),
+/* 169 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.setAwayTeamName = setAwayTeamName;
+exports.default = setAwayTeamNameReducer;
+var SET_AWAY_TEAM_NAME = 'SET_AWAY_TEAM_NAME';
+
+function setAwayTeamName(name) {
+    return {
+        type: SET_AWAY_TEAM_NAME,
+        name: name
+    };
+}
+
+function setAwayTeamNameReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    var action = arguments[1];
+
+    switch (action.type) {
+        case SET_AWAY_TEAM_NAME:
+            return action.name;
+        default:
+            return state;
+    }
+}
+
+/***/ }),
+/* 170 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.setHomeTeamName = setHomeTeamName;
+exports.default = setHomeTeamNameReducer;
+var SET_HOME_TEAM_NAME = 'SET_HOME_TEAM_NAME';
+
+function setHomeTeamName(name) {
+    return {
+        type: SET_HOME_TEAM_NAME,
+        name: name
+    };
+}
+
+function setHomeTeamNameReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    var action = arguments[1];
+
+    switch (action.type) {
+        case SET_HOME_TEAM_NAME:
+            return action.name;
+        default:
+            return state;
+    }
+}
+
+/***/ }),
+/* 171 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlayerAttributes = function (_Component) {
+    _inherits(PlayerAttributes, _Component);
+
+    function PlayerAttributes() {
+        _classCallCheck(this, PlayerAttributes);
+
+        var _this = _possibleConstructorReturn(this, (PlayerAttributes.__proto__ || Object.getPrototypeOf(PlayerAttributes)).call(this));
+
+        _this.convertArray = _this.convertArray.bind(_this);
+        return _this;
+    }
+
+    _createClass(PlayerAttributes, [{
+        key: 'convertArray',
+        value: function convertArray(arr) {
+            if (!arr) {
+                return '-';
+            } else if (arr.length === 1) {
+                return arr.join('');
+            } else {
+                return arr[0] + '-' + arr[arr.length - 1];
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            if (this.props.batter) {
+                var batter = this.props.batter;
+
+                return _react2.default.createElement(
+                    'div',
+                    { id: 'batter-game-attributes' },
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Strikeout: ',
+                        this.convertArray(batter.SO)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Groundout: ',
+                        this.convertArray(batter.GB)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Flyout: ',
+                        this.convertArray(batter.FB)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Walk: ',
+                        this.convertArray(batter.BB)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Single: ',
+                        this.convertArray(batter.single)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Single-Plus: ',
+                        this.convertArray(batter.singlePlus)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Double: ',
+                        this.convertArray(batter.double)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Triple: ',
+                        this.convertArray(batter.triple)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Home Run: ',
+                        this.convertArray(batter.homeRun)
+                    )
+                );
+            } else {
+                var pitcher = this.props.pitcher;
+
+                return _react2.default.createElement(
+                    'div',
+                    { id: 'pitcher-game-attributes' },
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Popout: ',
+                        this.convertArray(pitcher.PU)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Strikeout: ',
+                        this.convertArray(pitcher.SO)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Groundout: ',
+                        this.convertArray(pitcher.GB)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Flyout: ',
+                        this.convertArray(pitcher.FB)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Walk: ',
+                        this.convertArray(pitcher.BB)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Single: ',
+                        this.convertArray(pitcher.single)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Double: ',
+                        this.convertArray(pitcher.double)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        'Home Run: ',
+                        this.convertArray(pitcher.homeRun)
+                    )
+                );
+            }
+        }
+    }]);
+
+    return PlayerAttributes;
+}(_react.Component);
+
+exports.default = PlayerAttributes;
 
 /***/ })
 /******/ ]);
