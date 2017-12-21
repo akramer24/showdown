@@ -50,7 +50,7 @@ class Play extends Component {
         const control = this.state.pitcher.control;
 
         if (roll + control > onBase) {
-            this.setState({ 
+            this.setState({
                 turn: 'pitcher',
                 roll,
                 result: '',
@@ -61,7 +61,7 @@ class Play extends Component {
                 turn: 'batter',
                 roll,
                 result: '',
-                totalPAs: this.state.totalPAs + 1                
+                totalPAs: this.state.totalPAs + 1
             })
         }
     }
@@ -366,6 +366,7 @@ class Play extends Component {
                         result: key,
                         third: this.state.first,
                         second: this.state.batter,
+                        first: '',
                         batter: this.state.currentOrder[1],
                         currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
@@ -698,20 +699,47 @@ class Play extends Component {
                     </div>
                     <div id='diamond'>
                         <div id='home'>
-                            <img src={this.state.batter.image} id='home-image'/>
+                            <img src={this.state.batter.image} id='home-image' />
                         </div>
                         <div id='mound'>
-                            <img src={this.state.pitcher.image} id='mound-image'/>
+                            <img src={this.state.pitcher.image} id='mound-image' />
                         </div>
-                        <div id='first-base'>
-                            <h3>{this.state.first.name}</h3>
+                        <div id='first-basepath'></div>
+                        <div id='first'>
+                            <div id='first-base' className='base'></div>
+                            {
+                                this.state.first
+                                    ?
+                                    <img src={this.state.first.image} id='first-image' />
+                                    :
+                                    null
+                            }
                         </div>
-                        <div id='second-base'>
-                            <h3>{this.state.second.name}</h3>
+                        <div id='right-deep-INF'></div>
+                        <div id='right-basepath'></div>
+                        <div id='second'>
+                            <div id='second-base' className='base'></div>
+                            {
+                                this.state.second
+                                    ?
+                                    <img src={this.state.second.image} id='second-image' />
+                                    :
+                                    null
+                            }
                         </div>
-                        <div id='third-base'>
-                            <h3>{this.state.third.name}</h3>
+                        <div id='left-deep-INF'></div>
+                        <div id='left-basepath'></div>
+                        <div id='third'>
+                            <div id='third-base' className='base'></div>
+                            {
+                                this.state.third
+                                    ?
+                                    <img src={this.state.third.image} id='third-image' />
+                                    :
+                                    null
+                            }
                         </div>
+                        <div id='third-basepath'></div>
                     </div>
                     <div id='scoreboard'>
                         <h1>Scoreboard</h1>

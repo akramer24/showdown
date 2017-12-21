@@ -30074,6 +30074,7 @@ var Play = function (_Component) {
                             result: key,
                             third: this.state.first,
                             second: this.state.batter,
+                            first: '',
                             batter: this.state.currentOrder[1],
                             currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
@@ -30442,33 +30443,30 @@ var Play = function (_Component) {
                             { id: 'mound' },
                             _react2.default.createElement('img', { src: this.state.pitcher.image, id: 'mound-image' })
                         ),
+                        _react2.default.createElement('div', { id: 'first-basepath' }),
                         _react2.default.createElement(
                             'div',
-                            { id: 'first-base' },
-                            _react2.default.createElement(
-                                'h3',
-                                null,
-                                this.state.first.name
-                            )
+                            { id: 'first' },
+                            _react2.default.createElement('div', { id: 'first-base', className: 'base' }),
+                            this.state.first ? _react2.default.createElement('img', { src: this.state.first.image, id: 'first-image' }) : null
                         ),
+                        _react2.default.createElement('div', { id: 'right-deep-INF' }),
+                        _react2.default.createElement('div', { id: 'right-basepath' }),
                         _react2.default.createElement(
                             'div',
-                            { id: 'second-base' },
-                            _react2.default.createElement(
-                                'h3',
-                                null,
-                                this.state.second.name
-                            )
+                            { id: 'second' },
+                            _react2.default.createElement('div', { id: 'second-base', className: 'base' }),
+                            this.state.second ? _react2.default.createElement('img', { src: this.state.second.image, id: 'second-image' }) : null
                         ),
+                        _react2.default.createElement('div', { id: 'left-deep-INF' }),
+                        _react2.default.createElement('div', { id: 'left-basepath' }),
                         _react2.default.createElement(
                             'div',
-                            { id: 'third-base' },
-                            _react2.default.createElement(
-                                'h3',
-                                null,
-                                this.state.third.name
-                            )
-                        )
+                            { id: 'third' },
+                            _react2.default.createElement('div', { id: 'third-base', className: 'base' }),
+                            this.state.third ? _react2.default.createElement('img', { src: this.state.third.image, id: 'third-image' }) : null
+                        ),
+                        _react2.default.createElement('div', { id: 'third-basepath' })
                     ),
                     _react2.default.createElement(
                         'div',
