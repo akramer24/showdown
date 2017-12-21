@@ -29713,7 +29713,9 @@ var Play = function (_Component) {
 
         _this.state = {
             turn: '',
+            roll: null,
             result: '',
+            totalPAs: 0,
             half: 'top',
             inning: 1,
             outs: 0,
@@ -29755,15 +29757,28 @@ var Play = function (_Component) {
             var control = this.state.pitcher.control;
 
             if (roll + control > onBase) {
-                this.setState({ turn: 'pitcher' });
+                this.setState({
+                    turn: 'pitcher',
+                    roll: roll,
+                    result: '',
+                    totalPAs: this.state.totalPAs + 1
+                });
             } else {
-                this.setState({ turn: 'batter' });
+                this.setState({
+                    turn: 'batter',
+                    roll: roll,
+                    result: '',
+                    totalPAs: this.state.totalPAs + 1
+                });
             }
         }
     }, {
         key: 'handlePitch',
         value: function handlePitch() {
-            this.setState({ turn: '' });
+            this.setState({
+                turn: '',
+                roll: ''
+            });
             var roll = Math.ceil(Math.random() * 20);
             var roller = {};
 
@@ -29777,12 +29792,6 @@ var Play = function (_Component) {
             var notOuts = ['BB', 'single', 'singlePlus', 'double', 'triple', 'homeRun'];
             var order = [];
 
-            // if (this.state.half == 'top') {
-            // order = this.state.awayOrder;
-
-            // } else {
-            //     order = this.state.homeOrder;
-            // }
             var prevBatter = this.state.currentOrder.slice(0, 1);
             var newOrder = this.state.currentOrder.slice(1).concat(prevBatter);
 
@@ -30308,6 +30317,8 @@ var Play = function (_Component) {
             if (this.state.half == 'top') {
                 this.setState({
                     awayOrder: this.state.currentOrder,
+                    result: '',
+                    totalPAs: 0,
                     half: 'bottom',
                     outs: 0,
                     first: '',
@@ -30323,6 +30334,8 @@ var Play = function (_Component) {
                 this.setState({
                     homeOrder: this.state.currentOrder,
                     half: 'top',
+                    result: '',
+                    totalPAs: 0,
                     outs: 0,
                     inning: newInning,
                     first: '',
@@ -30354,108 +30367,112 @@ var Play = function (_Component) {
             } else {
                 return _react2.default.createElement(
                     'div',
-                    null,
+                    { id: 'board' },
                     _react2.default.createElement(
                         'div',
-                        null,
-                        _react2.default.createElement(
-                            'h3',
+                        { id: 'board-buttons' },
+                        this.state.outs == 3 ? _react2.default.createElement(
+                            'div',
                             null,
-                            'Batter: ',
-                            this.state.batter.name
+                            _react2.default.createElement(
+                                'button',
+                                { onClick: this.handleNextInning.bind(this) },
+                                'Next inning'
+                            ),
+                            _react2.default.createElement(
+                                'h4',
+                                null,
+                                'Result: ',
+                                this.state.result
+                            )
+                        ) : _react2.default.createElement(
+                            'div',
+                            null,
+                            this.state.result || this.state.totalPAs === 0 ? _react2.default.createElement(
+                                'button',
+                                { onClick: this.handleRoll.bind(this) },
+                                'Roll for turn'
+                            ) : _react2.default.createElement(
+                                'button',
+                                { onClick: this.handlePitch.bind(this) },
+                                'Pitch'
+                            ),
+                            _react2.default.createElement(
+                                'h4',
+                                null,
+                                'Pitcher Control: ',
+                                this.state.pitcher.control
+                            ),
+                            _react2.default.createElement(
+                                'h4',
+                                null,
+                                'Batter On-Base: ',
+                                this.state.batter.onBase
+                            ),
+                            this.state.roll ? _react2.default.createElement(
+                                'h4',
+                                null,
+                                'Roll: ',
+                                this.state.roll
+                            ) : null,
+                            this.state.turn ? _react2.default.createElement(
+                                'h4',
+                                null,
+                                'Advantage: ',
+                                this.state.turn
+                            ) : null,
+                            this.state.result ? _react2.default.createElement(
+                                'h4',
+                                null,
+                                'Result: ',
+                                this.state.result
+                            ) : null
                         )
                     ),
                     _react2.default.createElement(
                         'div',
-                        null,
+                        { id: 'diamond' },
                         _react2.default.createElement(
-                            'h3',
-                            null,
-                            'Pitcher: ',
-                            this.state.pitcher.name
-                        )
-                    ),
-                    this.state.outs == 3 ? _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            'button',
-                            { onClick: this.handleNextInning.bind(this) },
-                            'Next inning'
-                        )
-                    ) : _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            'button',
-                            { onClick: this.handleRoll.bind(this) },
-                            'Roll for turn'
+                            'div',
+                            { id: 'home' },
+                            _react2.default.createElement('img', { src: this.state.batter.image, id: 'home-image' })
                         ),
                         _react2.default.createElement(
-                            'h4',
-                            null,
-                            'Turn: ',
-                            this.state.turn
+                            'div',
+                            { id: 'mound' },
+                            _react2.default.createElement('img', { src: this.state.pitcher.image, id: 'mound-image' })
                         ),
                         _react2.default.createElement(
-                            'button',
-                            { onClick: this.handlePitch.bind(this) },
-                            'Pitch'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        null,
+                            'div',
+                            { id: 'first-base' },
+                            _react2.default.createElement(
+                                'h3',
+                                null,
+                                this.state.first.name
+                            )
+                        ),
                         _react2.default.createElement(
-                            'h3',
-                            null,
-                            'Inning: ',
-                            this.state.half + ' ' + this.state.inning
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        null,
+                            'div',
+                            { id: 'second-base' },
+                            _react2.default.createElement(
+                                'h3',
+                                null,
+                                this.state.second.name
+                            )
+                        ),
                         _react2.default.createElement(
-                            'h3',
-                            null,
-                            'Outs: ',
-                            this.state.outs
+                            'div',
+                            { id: 'third-base' },
+                            _react2.default.createElement(
+                                'h3',
+                                null,
+                                this.state.third.name
+                            )
                         )
                     ),
                     _react2.default.createElement(
                         'div',
-                        null,
-                        _react2.default.createElement(
-                            'h3',
-                            null,
-                            'First: ',
-                            this.state.first.name
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            'h3',
-                            null,
-                            'Second: ',
-                            this.state.second.name
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            'h3',
-                            null,
-                            'Third: ',
-                            this.state.third.name
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        null,
+                        { id: 'scoreboard' },
                         _react2.default.createElement(
                             'h1',
                             null,
@@ -30472,15 +30489,52 @@ var Play = function (_Component) {
                             null,
                             'Home: ',
                             this.state.half == 'bottom' ? this.state.currentScore : this.state.homeScore
+                        ),
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'Inning: ',
+                            this.state.half + ' ' + this.state.inning
+                        ),
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'Outs: ',
+                            this.state.outs
                         )
                     ),
-                    this.state.currentOrder.map(function (batter) {
-                        return _react2.default.createElement(
-                            'h4',
-                            { key: batter.id },
-                            batter.name
-                        );
-                    })
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'Lineup'
+                        ),
+                        this.state.currentOrder.map(function (batter, idx) {
+                            if (idx === 0) {
+                                return _react2.default.createElement(
+                                    'h4',
+                                    { key: batter.id },
+                                    'At Bat: ',
+                                    batter.name
+                                );
+                            } else if (idx === 1) {
+                                return _react2.default.createElement(
+                                    'h4',
+                                    { key: batter.id },
+                                    'On Deck: ',
+                                    batter.name
+                                );
+                            } else {
+                                return _react2.default.createElement(
+                                    'h4',
+                                    { key: batter.id },
+                                    batter.name
+                                );
+                            }
+                        })
+                    )
                 );
             }
         }
