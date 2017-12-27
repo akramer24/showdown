@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PlayerAttributes from './PlayerAttributes';
+import Sub from './Sub';
 
 class Play extends Component {
 
@@ -11,6 +12,7 @@ class Play extends Component {
             turn: '',
             roll: null,
             result: '',
+            printResult: '',
             totalPAs: 0,
             half: 'top',
             inning: 1,
@@ -31,7 +33,9 @@ class Play extends Component {
             awayTeam: '',
             homeTeam: '',
             batterAttributes: false,
-            pitcherAttributes: false
+            pitcherAttributes: false,
+            awayBench: [],
+            homeBench: []
         }
     }
 
@@ -46,7 +50,9 @@ class Play extends Component {
                 batter: this.props.awayLineup.slice(0, 9)[0],
                 pitcher: this.props.homeLineup[12],
                 awayTeam: this.props.awayTeamName,
-                homeTeam: this.props.homeTeamName
+                homeTeam: this.props.homeTeamName,
+                awayBench: this.props.awayLineup.slice(9, 12).concat(this.props.awayLineup.slice(13)),
+                homeBench: this.props.homeLineup.slice(9, 12).concat(this.props.homeLineup.slice(13))
             }
         )
     }
@@ -95,6 +101,7 @@ class Play extends Component {
         const newOrder = this.state.currentOrder.slice(1).concat(prevBatter)
 
         for (let key in roller) {
+            this.setState({ printResult: this.translateResult.call(this, key) })
             if (outs.includes(key) && roller[key] !== null && roller[key].includes(roll)) {
                 console.log(this.state.batter.name + 'out: ', key)
                 this.setState({
@@ -611,7 +618,6 @@ class Play extends Component {
 
     handleNextInning() {
         const newInning = this.state.inning + 1;
-        console.log('new half inning')
 
         if (this.state.half == 'top') {
             this.setState({
@@ -652,21 +658,47 @@ class Play extends Component {
     handleBatterAttributes() {
         const newState = !this.state.batterAttributes;
         this.setState({ batterAttributes: newState });
-        console.log('clicked');
     }
 
     handlePitcherAttributes() {
         this.setState({ pitcherAttributes: !this.state.pitcherAttributes });
     }
 
+    translateResult(result) {
+        switch (result) {
+            case 'SO':
+                return 'Strikeout!';
+            case 'GB':
+                return 'Groundout!';
+            case 'FB':
+                return 'Flyout!';
+            case 'BB':
+                return 'Walk!';
+            case 'single':
+                return 'Single!';
+            case 'singlePlus':
+                return 'Single-Plus!';
+            case 'double':
+                return 'Double!';
+            case 'triple':
+                return 'Triple!';
+            case 'homeRun':
+                return 'Home Run!!!';
+            case 'PU':
+                return 'Popout!';
+            default:
+                return 'No result';
+        }
+    }
+
     render() {
         if (this.state.inning >= 9 && this.state.half == 'bottom' && this.state.homeScore > this.state.awayScore) {
             return (
-                <h1>Home wins!</h1>
+                <h1>{this.state.homeTeam} wins!</h1>
             )
         } else if (this.state.inning >= 10 && this.state.half == 'top' && this.state.homeScore < this.state.awayScore) {
             return (
-                <h1>Away wins!</h1>
+                <h1>{this.state.awayTeam} wins!</h1>
             )
         } else {
             return (
@@ -677,7 +709,6 @@ class Play extends Component {
                                 ?
                                 <div>
                                     <button onClick={this.handleNextInning.bind(this)}>Next inning</button>
-                                    <h4>Result: {this.state.result}</h4>
                                 </div>
                                 :
                                 <div>
@@ -704,17 +735,18 @@ class Play extends Component {
                                             :
                                             null
                                     }
-                                    {
-                                        this.state.result
-                                            ?
-                                            <h4>Result: {this.state.result}</h4>
-                                            :
-                                            null
-                                    }
                                 </div>
                         }
                     </div>
                     <div id='diamond'>
+                        <Sub away={this.state.awayBench} home={this.state.homeBench} />
+                        {
+                            this.state.result || this.state.outs == 3
+                                ?
+                                <h4 id='result'>{this.state.printResult}</h4>
+                                :
+                                null
+                        }
                         {
                             this.state.batterAttributes
                                 ?

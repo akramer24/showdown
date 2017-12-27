@@ -353,3 +353,21 @@ body {
     color: #e60909;
     text-shadow: 1px 1px 1px #dcd7d7;
 }
+
+#sub {
+    list-style: none;
+    position: absolute;
+    left: 67%;
+    background-color: #efe5e5;
+    color: black;
+    width: 175px;
+}
+
+#result {
+    position: absolute;
+    top: 186px;
+    left: 65.3%;
+    font-size: 30px;
+    width: 200px;
+    text-align: center;
+}

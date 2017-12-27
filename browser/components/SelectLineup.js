@@ -15,7 +15,7 @@ export default function BattingOrder() {
             )
         } else if (idx >= 10 && idx <= 12) {
             return (
-                <option key={idx}>Bench</option>
+                <option key={idx} value={idx}>Bench</option>
             )
         } else if (idx === 13) {
             return (
