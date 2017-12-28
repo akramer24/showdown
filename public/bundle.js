@@ -29843,7 +29843,13 @@ var Play = function (_Component) {
             batterAttributes: false,
             pitcherAttributes: false,
             awayBench: [],
-            homeBench: []
+            homeBench: [],
+            bench: [],
+            awayBullpen: [],
+            homeBullpen: [],
+            bullpen: [],
+            displayBench: false,
+            displayBullpen: false
         };
         return _this;
     }
@@ -29861,8 +29867,12 @@ var Play = function (_Component) {
                 pitcher: this.props.homeLineup[12],
                 awayTeam: this.props.awayTeamName,
                 homeTeam: this.props.homeTeamName,
-                awayBench: this.props.awayLineup.slice(9, 12).concat(this.props.awayLineup.slice(13)),
-                homeBench: this.props.homeLineup.slice(9, 12).concat(this.props.homeLineup.slice(13))
+                awayBench: this.props.awayLineup.slice(9, 12),
+                awayBullpen: this.props.awayLineup.slice(13),
+                homeBench: this.props.homeLineup.slice(9, 12),
+                homeBullpen: this.props.homeLineup.slice(13),
+                bench: this.props.awayLineup.slice(9, 12),
+                bullpen: this.props.awayLineup.slice(13)
             });
         }
     }, {
@@ -29891,6 +29901,7 @@ var Play = function (_Component) {
     }, {
         key: 'handlePitch',
         value: function handlePitch() {
+            console.log('pen: ', this.state.bullpen, 'home: ', this.state.homeBullpen, 'away: ', this.state.awayBullpen);
             this.setState({
                 turn: '',
                 roll: ''
@@ -29912,15 +29923,17 @@ var Play = function (_Component) {
             var newOrder = this.state.currentOrder.slice(1).concat(prevBatter);
 
             for (var key in roller) {
-                this.setState({ printResult: this.translateResult.call(this, key) });
+                this.setState({
+                    printResult: this.translateResult.call(this, key),
+                    result: key,
+                    batter: this.state.currentOrder[1],
+                    currentOrder: newOrder
+                });
+
                 if (outs.includes(key) && roller[key] !== null && roller[key].includes(roll)) {
                     console.log(this.state.batter.name + 'out: ', key);
                     this.setState({
-                        result: key,
-                        outs: this.state.outs + 1,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
-
+                        outs: this.state.outs + 1
                     });
                     return;
                 } else if (notOuts.includes(key) && roller[key] !== null && roller[key].includes(roll)) {
@@ -29928,45 +29941,33 @@ var Play = function (_Component) {
                         //bases empty walk
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
-                            first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            first: this.state.batter
                         });
                         return;
                     } else if (key == 'BB' && this.state.first && !this.state.second && !this.state.third) {
                         //man on first walk
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             second: this.state.first,
-                            first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            first: this.state.batter
                         });
                         return;
                     } else if (key == 'BB' && this.state.first && this.state.second && !this.state.third) {
                         //men on first and second walk
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.second,
                             second: this.state.first,
-                            first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            first: this.state.batter
                         });
                         return;
                     } else if (key == 'BB' && this.state.first && this.state.second && this.state.third) {
                         //bases loaded walk
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.second,
                             second: this.state.first,
                             first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
                         });
                         return;
@@ -29974,85 +29975,61 @@ var Play = function (_Component) {
                         //men on second and third walk
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
-                            first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            first: this.state.batter
                         });
                         return;
                     } else if (key == 'BB' && !this.state.first && this.state.second && !this.state.third) {
                         //man on second walk
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
-                            first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            first: this.state.batter
                         });
                         return;
                     } else if (key == 'BB' && !this.state.first && !this.state.second && this.state.third) {
                         //man on third walk
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
-                            first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            first: this.state.batter
                         });
                         return;
                     } else if (key == 'BB' && this.state.first && !this.state.second && this.state.third) {
                         //men on first and third walk
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             second: this.state.first,
-                            first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            first: this.state.batter
                         });
                         return;
                     } else if (key == 'single' && !this.state.first && !this.state.second && !this.state.third) {
                         //bases empty single
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
-                            first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            first: this.state.batter
                         });
                         return;
                     } else if ((key == 'single' || key == 'singlePlus') && this.state.first && !this.state.second && !this.state.third) {
                         //man on first single
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             second: this.state.first,
-                            first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            first: this.state.batter
                         });
                         return;
                     } else if (key == 'single' && !this.state.first && this.state.second && !this.state.third) {
                         //man on second single
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.second,
                             second: '',
-                            first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            first: this.state.batter
                         });
                         return;
                     } else if (key == 'single' && !this.state.first && !this.state.second && this.state.third) {
                         //man on third single
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: '',
                             first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
                         });
                         return;
@@ -30060,24 +30037,18 @@ var Play = function (_Component) {
                         //men on first and second single
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.second,
                             second: this.state.first,
-                            first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            first: this.state.batter
                         });
                         return;
                     } else if ((key == 'single' || key == 'singlePlus') && this.state.first && !this.state.second && this.state.third) {
                         //men on first and third single
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: '',
                             second: this.state.first,
                             first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
                         });
                         return;
@@ -30085,12 +30056,9 @@ var Play = function (_Component) {
                         //men on second and third single
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.second,
                             second: '',
                             first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
                         });
                         return;
@@ -30098,12 +30066,9 @@ var Play = function (_Component) {
                         //bases loaded single
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.second,
                             second: this.state.first,
                             first: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
                         });
                         return;
@@ -30111,31 +30076,22 @@ var Play = function (_Component) {
                         //bases empty singlePlus
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
-                            second: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            second: this.state.batter
                         });
                         return;
                     } else if (key == 'singlePlus' && !this.state.first && this.state.second && !this.state.third) {
                         //man on second singlePlus
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.second,
-                            second: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            second: this.state.batter
                         });
                         return;
                     } else if (key == 'singlePlus' && !this.state.first && !this.state.second && this.state.third) {
                         //man on third singlePlus
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             second: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
                         });
                         return;
@@ -30143,32 +30099,23 @@ var Play = function (_Component) {
                         //bases empty double
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
-                            second: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            second: this.state.batter
                         });
                         return;
                     } else if (key == 'double' && this.state.first && !this.state.second && !this.state.third) {
                         //man on first double
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.first,
                             second: this.state.batter,
-                            first: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            first: ''
                         });
                         return;
                     } else if (key == 'double' && !this.state.first && this.state.second && !this.state.third) {
                         //man on second double
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             second: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
                         });
                         return;
@@ -30176,11 +30123,8 @@ var Play = function (_Component) {
                         //man on third double
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: '',
                             second: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
                         });
                         return;
@@ -30188,12 +30132,9 @@ var Play = function (_Component) {
                         //men on first and second double
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.first,
                             second: this.state.batter,
                             first: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
                         });
                         return;
@@ -30201,12 +30142,9 @@ var Play = function (_Component) {
                         //men on first and third double
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.first,
                             second: this.state.batter,
                             first: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
                         });
                         return;
@@ -30214,11 +30152,8 @@ var Play = function (_Component) {
                         //men on second and third double
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: '',
                             second: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 2
                         });
                         return;
@@ -30226,12 +30161,9 @@ var Play = function (_Component) {
                         //bases loaded double
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.first,
                             second: this.state.batter,
                             first: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 2
                         });
                         return;
@@ -30239,21 +30171,15 @@ var Play = function (_Component) {
                         //bases empty triple
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
-                            third: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder
+                            third: this.state.batter
                         });
                         return;
                     } else if (key == 'triple' && this.state.first && !this.state.second && !this.state.third) {
                         //man on first triple
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.batter,
                             first: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
                         });
                         return;
@@ -30261,11 +30187,8 @@ var Play = function (_Component) {
                         //man on second triple
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.batter,
                             second: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
                         });
                         return;
@@ -30273,10 +30196,7 @@ var Play = function (_Component) {
                         //man on third triple
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.batter,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
                         });
                         return;
@@ -30284,12 +30204,9 @@ var Play = function (_Component) {
                         //men on first and second triple
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.batter,
                             second: '',
                             first: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 2
                         });
                         return;
@@ -30297,11 +30214,8 @@ var Play = function (_Component) {
                         //men on first and third triple
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.batter,
                             first: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 2
                         });
                         return;
@@ -30309,11 +30223,8 @@ var Play = function (_Component) {
                         //men on second and third triple
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.batter,
                             second: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 2
                         });
                         return;
@@ -30321,12 +30232,9 @@ var Play = function (_Component) {
                         //bases loaded triple
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: this.state.batter,
                             second: '',
                             first: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 3
                         });
                         return;
@@ -30334,9 +30242,6 @@ var Play = function (_Component) {
                         //bases empty homeRun
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 1
                         });
                         return;
@@ -30344,10 +30249,7 @@ var Play = function (_Component) {
                         //man on first homeRun
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             first: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 2
                         });
                         return;
@@ -30355,10 +30257,7 @@ var Play = function (_Component) {
                         //man on second homeRun
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             second: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 2
                         });
                         return;
@@ -30366,10 +30265,7 @@ var Play = function (_Component) {
                         //man on third homeRun
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 2
                         });
                         return;
@@ -30377,11 +30273,8 @@ var Play = function (_Component) {
                         //men on first and second homeRun
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             second: '',
                             first: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 3
                         });
                         return;
@@ -30389,11 +30282,8 @@ var Play = function (_Component) {
                         //men on first and third homeRun
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: '',
                             first: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 3
                         });
                         return;
@@ -30401,11 +30291,8 @@ var Play = function (_Component) {
                         //men on second and third homeRun
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: '',
                             second: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 3
                         });
                         return;
@@ -30413,12 +30300,9 @@ var Play = function (_Component) {
                         //bases loaded homeRun
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
-                            result: key,
                             third: '',
                             second: '',
                             first: '',
-                            batter: this.state.currentOrder[1],
-                            currentOrder: newOrder,
                             currentScore: this.state.currentScore + 4
                         });
                         return;
@@ -30443,9 +30327,11 @@ var Play = function (_Component) {
                     third: '',
                     currentOrder: this.state.homeOrder,
                     batter: this.state.homeOrder[0],
-                    pitcher: this.props.awayLineup[12],
+                    pitcher: this.state.awayPitcher,
                     awayScore: this.state.currentScore,
-                    currentScore: this.state.homeScore
+                    currentScore: this.state.homeScore,
+                    bench: this.state.homeBench,
+                    bullpen: this.state.homeBullpen
                 });
             } else if (this.state.half == 'bottom') {
                 this.setState({
@@ -30460,9 +30346,11 @@ var Play = function (_Component) {
                     third: '',
                     currentOrder: this.state.awayOrder,
                     batter: this.state.awayOrder[0],
-                    pitcher: this.props.homeLineup[12],
+                    pitcher: this.state.homePitcher,
                     homeScore: this.state.currentScore,
-                    currentScore: this.state.awayScore
+                    currentScore: this.state.awayScore,
+                    bench: this.state.awayBench,
+                    bullpen: this.state.awayBullpen
                 });
             }
         }
@@ -30506,8 +30394,67 @@ var Play = function (_Component) {
             }
         }
     }, {
+        key: 'subBatter',
+        value: function subBatter(sub) {
+            var lineup = this.state.currentOrder;
+            var bench = this.state.bench;
+            var lineupIdx = this.state.currentOrder.indexOf(this.state.batter);
+            var benchIdx = this.state.bench.indexOf(sub);
+            lineup[lineupIdx] = sub;
+            bench.splice(benchIdx, 1);
+
+            if (this.state.half === 'top') {
+                this.setState({ awayBench: bench });
+            } else {
+                this.setState({ homeBench: bench });
+            }
+            this.setState({
+                currentOrder: lineup,
+                bench: bench,
+                batter: lineup[0],
+                displayBench: false
+            });
+        }
+    }, {
+        key: 'subPitcher',
+        value: function subPitcher(sub) {
+            var bullpen = this.state.bullpen;
+            var bullpenIdx = this.state.bullpen.indexOf(sub);
+            bullpen.splice(bullpenIdx, 1);
+
+            if (this.state.half === 'top') {
+                this.setState({
+                    pitcher: sub,
+                    homePitcher: sub,
+                    bullpen: bullpen,
+                    awayBullpen: bullpen,
+                    displayBullpen: false
+                });
+            } else if (this.state.half === 'bottom') {
+                this.setState({
+                    pitcher: sub,
+                    awayPitcher: sub,
+                    bullpen: bullpen,
+                    homeBullpen: bullpen,
+                    displayBullpen: false
+                });
+            }
+        }
+    }, {
+        key: 'displayBench',
+        value: function displayBench() {
+            this.setState({ displayBench: !this.state.displayBench });
+        }
+    }, {
+        key: 'displayBullpen',
+        value: function displayBullpen() {
+            this.setState({ displayBullpen: !this.state.displayBullpen });
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             if (this.state.inning >= 9 && this.state.half == 'bottom' && this.state.homeScore > this.state.awayScore) {
                 return _react2.default.createElement(
                     'h1',
@@ -30578,7 +30525,62 @@ var Play = function (_Component) {
                     _react2.default.createElement(
                         'div',
                         { id: 'diamond' },
-                        _react2.default.createElement(_Sub2.default, { away: this.state.awayBench, home: this.state.homeBench }),
+                        this.state.displayBench ? _react2.default.createElement(
+                            'div',
+                            { className: 'sub' },
+                            _react2.default.createElement(
+                                'h3',
+                                null,
+                                'Bench ',
+                                _react2.default.createElement(
+                                    'button',
+                                    { onClick: this.displayBench.bind(this), className: 'sub-button' },
+                                    'Hide Bench'
+                                )
+                            ),
+                            this.state.bench.map(function (player) {
+                                return _react2.default.createElement(
+                                    'li',
+                                    { key: player.id },
+                                    player.name,
+                                    ', ',
+                                    player.position,
+                                    _react2.default.createElement(
+                                        'button',
+                                        { onClick: _this2.subBatter.bind(_this2, player), className: 'sub-button' },
+                                        'Insert'
+                                    )
+                                );
+                            })
+                        ) : null,
+                        this.state.displayBullpen ? _react2.default.createElement(
+                            'div',
+                            { className: 'sub' },
+                            _react2.default.createElement(
+                                'h3',
+                                null,
+                                'Bullpen ',
+                                _react2.default.createElement(
+                                    'button',
+                                    { onClick: this.displayBullpen.bind(this), className: 'sub-button' },
+                                    'Hide Bullpen'
+                                )
+                            ),
+                            this.state.bullpen.map(function (player) {
+                                return _react2.default.createElement(
+                                    'li',
+                                    { key: player.id },
+                                    player.name,
+                                    ', ',
+                                    player.position,
+                                    _react2.default.createElement(
+                                        'button',
+                                        { onClick: _this2.subPitcher.bind(_this2, player), className: 'sub-button' },
+                                        'Insert'
+                                    )
+                                );
+                            })
+                        ) : null,
                         this.state.result || this.state.outs == 3 ? _react2.default.createElement(
                             'h4',
                             { id: 'result' },
@@ -30589,8 +30591,13 @@ var Play = function (_Component) {
                             { id: 'home' },
                             _react2.default.createElement(
                                 'button',
-                                { onClick: this.handleBatterAttributes.bind(this) },
+                                { onClick: this.handleBatterAttributes.bind(this), id: 'see-batter-card' },
                                 'See card'
+                            ),
+                            _react2.default.createElement(
+                                'button',
+                                { onClick: this.displayBench.bind(this), id: 'see-bench' },
+                                'See bench'
                             ),
                             _react2.default.createElement(_PlayerAttributes2.default, { batter: this.state.batter })
                         ) : _react2.default.createElement(
@@ -30598,8 +30605,13 @@ var Play = function (_Component) {
                             { id: 'home' },
                             _react2.default.createElement(
                                 'button',
-                                { onClick: this.handleBatterAttributes.bind(this) },
+                                { onClick: this.handleBatterAttributes.bind(this), id: 'see-batter-card' },
                                 'See attributes'
+                            ),
+                            _react2.default.createElement(
+                                'button',
+                                { onClick: this.displayBench.bind(this), id: 'see-bench' },
+                                'See bench'
                             ),
                             _react2.default.createElement('img', { src: this.state.batter.image, id: 'home-image' })
                         ),
@@ -30608,8 +30620,13 @@ var Play = function (_Component) {
                             { id: 'mound' },
                             _react2.default.createElement(
                                 'button',
-                                { onClick: this.handlePitcherAttributes.bind(this) },
+                                { onClick: this.handlePitcherAttributes.bind(this), id: 'see-pitcher-card' },
                                 'See card'
+                            ),
+                            _react2.default.createElement(
+                                'button',
+                                { onClick: this.displayBullpen.bind(this), id: 'see-pen' },
+                                'See bullpen'
                             ),
                             _react2.default.createElement(_PlayerAttributes2.default, { pitcher: this.state.pitcher })
                         ) : _react2.default.createElement(
@@ -30617,8 +30634,13 @@ var Play = function (_Component) {
                             { id: 'mound' },
                             _react2.default.createElement(
                                 'button',
-                                { onClick: this.handlePitcherAttributes.bind(this) },
+                                { onClick: this.handlePitcherAttributes.bind(this), id: 'see-pitcher-card' },
                                 'See attributes'
+                            ),
+                            _react2.default.createElement(
+                                'button',
+                                { onClick: this.displayBullpen.bind(this), id: 'see-pen' },
+                                'See bullpen'
                             ),
                             _react2.default.createElement('img', { src: this.state.pitcher.image, id: 'mound-image' })
                         ),
@@ -30931,7 +30953,8 @@ exports.default = PlayerAttributes;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = Sub;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -30939,21 +30962,65 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Sub(props) {
-    return _react2.default.createElement(
-        'div',
-        { id: 'sub' },
-        props.away.map(function (player) {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Sub = function (_Component) {
+    _inherits(Sub, _Component);
+
+    function Sub() {
+        _classCallCheck(this, Sub);
+
+        return _possibleConstructorReturn(this, (Sub.__proto__ || Object.getPrototypeOf(Sub)).apply(this, arguments));
+    }
+
+    _createClass(Sub, [{
+        key: 'handleSub',
+        value: function handleSub(sub) {
+            var lineupIdx = this.props.lineup.indexOf(this.props.batter);
+            var benchIdx = this.props.bench.indexOf(sub);
+            this.props.lineup[lineupIdx] = sub;
+            this.props.bench.splice(benchIdx, 1);
+            console.log(this.props.lineup, this.props.bench);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
-                'li',
-                { key: player.id },
-                player.name,
-                ', ',
-                player.position
+                'div',
+                { id: 'sub' },
+                _react2.default.createElement(
+                    'h3',
+                    null,
+                    'Bench'
+                ),
+                this.props.bench.map(function (player) {
+                    return _react2.default.createElement(
+                        'li',
+                        { key: player.id },
+                        player.name,
+                        ', ',
+                        player.position,
+                        _react2.default.createElement(
+                            'button',
+                            { onClick: _this2.handleSub.bind(_this2, player) },
+                            'Insert'
+                        )
+                    );
+                })
             );
-        })
-    );
-}
+        }
+    }]);
+
+    return Sub;
+}(_react.Component);
+
+exports.default = Sub;
 
 /***/ })
 /******/ ]);

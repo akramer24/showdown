@@ -35,7 +35,13 @@ class Play extends Component {
             batterAttributes: false,
             pitcherAttributes: false,
             awayBench: [],
-            homeBench: []
+            homeBench: [],
+            bench: [],
+            awayBullpen: [],
+            homeBullpen: [],
+            bullpen: [],
+            displayBench: false,
+            displayBullpen: false
         }
     }
 
@@ -51,8 +57,12 @@ class Play extends Component {
                 pitcher: this.props.homeLineup[12],
                 awayTeam: this.props.awayTeamName,
                 homeTeam: this.props.homeTeamName,
-                awayBench: this.props.awayLineup.slice(9, 12).concat(this.props.awayLineup.slice(13)),
-                homeBench: this.props.homeLineup.slice(9, 12).concat(this.props.homeLineup.slice(13))
+                awayBench: this.props.awayLineup.slice(9, 12),
+                awayBullpen: this.props.awayLineup.slice(13),
+                homeBench: this.props.homeLineup.slice(9, 12),
+                homeBullpen: this.props.homeLineup.slice(13),
+                bench: this.props.awayLineup.slice(9, 12),
+                bullpen: this.props.awayLineup.slice(13)
             }
         )
     }
@@ -80,6 +90,7 @@ class Play extends Component {
     }
 
     handlePitch() {
+        console.log('pen: ', this.state.bullpen, 'home: ', this.state.homeBullpen, 'away: ', this.state.awayBullpen)
         this.setState({
             turn: '',
             roll: '',
@@ -101,15 +112,17 @@ class Play extends Component {
         const newOrder = this.state.currentOrder.slice(1).concat(prevBatter)
 
         for (let key in roller) {
-            this.setState({ printResult: this.translateResult.call(this, key) })
+            this.setState({
+                printResult: this.translateResult.call(this, key),
+                result: key,
+                batter: this.state.currentOrder[1],
+                currentOrder: newOrder
+            })
+
             if (outs.includes(key) && roller[key] !== null && roller[key].includes(roll)) {
                 console.log(this.state.batter.name + 'out: ', key)
                 this.setState({
-                    result: key,
-                    outs: this.state.outs + 1,
-                    batter: this.state.currentOrder[1],
-                    currentOrder: newOrder
-
+                    outs: this.state.outs + 1
                 });
                 return;
             } else if (notOuts.includes(key) && roller[key] !== null && roller[key].includes(roll)) {
@@ -117,45 +130,33 @@ class Play extends Component {
                     //bases empty walk
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if (key == 'BB' && this.state.first && !this.state.second && !this.state.third) {
                     //man on first walk
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         second: this.state.first,
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if (key == 'BB' && this.state.first && this.state.second && !this.state.third) {
                     //men on first and second walk
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.second,
                         second: this.state.first,
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if (key == 'BB' && this.state.first && this.state.second && this.state.third) {
                     //bases loaded walk
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.second,
                         second: this.state.first,
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
                     });
                     return;
@@ -163,85 +164,61 @@ class Play extends Component {
                     //men on second and third walk
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if (key == 'BB' && !this.state.first && this.state.second && !this.state.third) {
                     //man on second walk
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if (key == 'BB' && !this.state.first && !this.state.second && this.state.third) {
                     //man on third walk
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if (key == 'BB' && this.state.first && !this.state.second && this.state.third) {
                     //men on first and third walk
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         second: this.state.first,
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if (key == 'single' && !this.state.first && !this.state.second && !this.state.third) {
                     //bases empty single
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if ((key == 'single' || key == 'singlePlus') && this.state.first && !this.state.second && !this.state.third) {
                     //man on first single
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         second: this.state.first,
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if (key == 'single' && !this.state.first && this.state.second && !this.state.third) {
                     //man on second single
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.second,
                         second: '',
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if (key == 'single' && !this.state.first && !this.state.second && this.state.third) {
                     //man on third single
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: '',
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
                     });
                     return;
@@ -249,24 +226,18 @@ class Play extends Component {
                     //men on first and second single
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.second,
                         second: this.state.first,
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if ((key == 'single' || key == 'singlePlus') && this.state.first && !this.state.second && this.state.third) {
                     //men on first and third single
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: '',
                         second: this.state.first,
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
                     });
                     return;
@@ -274,12 +245,9 @@ class Play extends Component {
                     //men on second and third single
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.second,
                         second: '',
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
                     });
                     return;
@@ -287,12 +255,9 @@ class Play extends Component {
                     //bases loaded single
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.second,
                         second: this.state.first,
                         first: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
                     });
                     return;
@@ -300,31 +265,22 @@ class Play extends Component {
                     //bases empty singlePlus
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         second: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if (key == 'singlePlus' && !this.state.first && this.state.second && !this.state.third) {
                     //man on second singlePlus
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.second,
                         second: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if (key == 'singlePlus' && !this.state.first && !this.state.second && this.state.third) {
                     //man on third singlePlus
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         second: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
                     });
                     return;
@@ -332,32 +288,23 @@ class Play extends Component {
                     //bases empty double
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         second: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if (key == 'double' && this.state.first && !this.state.second && !this.state.third) {
                     //man on first double
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.first,
                         second: this.state.batter,
                         first: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if (key == 'double' && !this.state.first && this.state.second && !this.state.third) {
                     //man on second double
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         second: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
                     });
                     return;
@@ -365,11 +312,8 @@ class Play extends Component {
                     //man on third double
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: '',
                         second: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
                     });
                     return;
@@ -377,12 +321,9 @@ class Play extends Component {
                     //men on first and second double
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.first,
                         second: this.state.batter,
                         first: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
                     });
                     return;
@@ -390,12 +331,9 @@ class Play extends Component {
                     //men on first and third double
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.first,
                         second: this.state.batter,
                         first: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
                     });
                     return;
@@ -403,11 +341,8 @@ class Play extends Component {
                     //men on second and third double
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: '',
                         second: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 2
                     });
                     return;
@@ -415,12 +350,9 @@ class Play extends Component {
                     //bases loaded double
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.first,
                         second: this.state.batter,
                         first: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 2
                     });
                     return;
@@ -428,21 +360,15 @@ class Play extends Component {
                     //bases empty triple
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder
                     });
                     return;
                 } else if (key == 'triple' && this.state.first && !this.state.second && !this.state.third) {
                     //man on first triple
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.batter,
                         first: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
                     });
                     return;
@@ -450,11 +376,8 @@ class Play extends Component {
                     //man on second triple
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.batter,
                         second: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
                     });
                     return;
@@ -462,10 +385,7 @@ class Play extends Component {
                     //man on third triple
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.batter,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
                     });
                     return;
@@ -473,12 +393,9 @@ class Play extends Component {
                     //men on first and second triple
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.batter,
                         second: '',
                         first: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 2
                     });
                     return;
@@ -486,11 +403,8 @@ class Play extends Component {
                     //men on first and third triple
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.batter,
                         first: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 2
                     });
                     return;
@@ -498,11 +412,8 @@ class Play extends Component {
                     //men on second and third triple
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.batter,
                         second: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 2
                     });
                     return;
@@ -510,12 +421,9 @@ class Play extends Component {
                     //bases loaded triple
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: this.state.batter,
                         second: '',
                         first: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 3
                     });
                     return;
@@ -523,9 +431,6 @@ class Play extends Component {
                     //bases empty homeRun
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 1
                     });
                     return;
@@ -533,10 +438,7 @@ class Play extends Component {
                     //man on first homeRun
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         first: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 2
                     });
                     return;
@@ -544,10 +446,7 @@ class Play extends Component {
                     //man on second homeRun
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         second: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 2
                     });
                     return;
@@ -555,10 +454,7 @@ class Play extends Component {
                     //man on third homeRun
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 2
                     });
                     return;
@@ -566,11 +462,8 @@ class Play extends Component {
                     //men on first and second homeRun
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         second: '',
                         first: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 3
                     });
                     return;
@@ -578,11 +471,8 @@ class Play extends Component {
                     //men on first and third homeRun
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: '',
                         first: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 3
                     });
                     return;
@@ -590,11 +480,8 @@ class Play extends Component {
                     //men on second and third homeRun
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: '',
                         second: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 3
                     });
                     return;
@@ -602,12 +489,9 @@ class Play extends Component {
                     //bases loaded homeRun
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
-                        result: key,
                         third: '',
                         second: '',
                         first: '',
-                        batter: this.state.currentOrder[1],
-                        currentOrder: newOrder,
                         currentScore: this.state.currentScore + 4
                     });
                     return;
@@ -631,9 +515,11 @@ class Play extends Component {
                 third: '',
                 currentOrder: this.state.homeOrder,
                 batter: this.state.homeOrder[0],
-                pitcher: this.props.awayLineup[12],
+                pitcher: this.state.awayPitcher,
                 awayScore: this.state.currentScore,
-                currentScore: this.state.homeScore
+                currentScore: this.state.homeScore,
+                bench: this.state.homeBench,
+                bullpen: this.state.homeBullpen
             })
         } else if (this.state.half == 'bottom') {
             this.setState({
@@ -648,9 +534,11 @@ class Play extends Component {
                 third: '',
                 currentOrder: this.state.awayOrder,
                 batter: this.state.awayOrder[0],
-                pitcher: this.props.homeLineup[12],
+                pitcher: this.state.homePitcher,
                 homeScore: this.state.currentScore,
-                currentScore: this.state.awayScore
+                currentScore: this.state.awayScore,
+                bench: this.state.awayBench,
+                bullpen: this.state.awayBullpen
             })
         }
     }
@@ -689,6 +577,59 @@ class Play extends Component {
             default:
                 return 'No result';
         }
+    }
+
+    subBatter(sub) {
+        const lineup = this.state.currentOrder;
+        const bench = this.state.bench;
+        const lineupIdx = this.state.currentOrder.indexOf(this.state.batter);
+        const benchIdx = this.state.bench.indexOf(sub);
+        lineup[lineupIdx] = sub;
+        bench.splice(benchIdx, 1);
+        
+        if (this.state.half === 'top') {
+            this.setState({ awayBench: bench})
+        } else {
+            this.setState({ homeBench: bench })
+        }
+        this.setState({
+            currentOrder: lineup,
+            bench,
+            batter: lineup[0],
+            displayBench: false
+        })
+    }
+
+    subPitcher(sub) {
+        const bullpen = this.state.bullpen;
+        const bullpenIdx = this.state.bullpen.indexOf(sub);
+        bullpen.splice(bullpenIdx, 1);
+
+        if (this.state.half === 'top') {
+            this.setState({
+                pitcher: sub,
+                homePitcher: sub,
+                bullpen,
+                awayBullpen: bullpen,
+                displayBullpen: false
+            });
+        } else if (this.state.half === 'bottom') {
+            this.setState({
+                pitcher: sub,
+                awayPitcher: sub,
+                bullpen,
+                homeBullpen: bullpen,
+                displayBullpen: false
+            });
+        }
+    }
+
+    displayBench() {
+        this.setState({ displayBench: !this.state.displayBench });
+    }
+
+    displayBullpen() {
+        this.setState({ displayBullpen: !this.state.displayBullpen });
     }
 
     render() {
@@ -739,7 +680,34 @@ class Play extends Component {
                         }
                     </div>
                     <div id='diamond'>
-                        <Sub away={this.state.awayBench} home={this.state.homeBench} />
+                        {
+                            this.state.displayBench
+                                ?
+                                <div className='sub'>
+                                    <h3>Bench <button onClick={this.displayBench.bind(this)} className='sub-button'>Hide Bench</button></h3>
+                                    {this.state.bench.map(player => {
+                                        return <li key={player.id}>{player.name}, {player.position}
+                                            <button onClick={this.subBatter.bind(this, player)} className='sub-button'>Insert</button>
+                                        </li>
+                                    })}
+                                </div>
+                                :
+                                null
+                        }
+                        {
+                            this.state.displayBullpen
+                                ?
+                                <div className='sub'>
+                                    <h3>Bullpen <button onClick={this.displayBullpen.bind(this)} className='sub-button'>Hide Bullpen</button></h3>
+                                    {this.state.bullpen.map(player => {
+                                        return <li key={player.id}>{player.name}, {player.position}
+                                            <button onClick={this.subPitcher.bind(this, player)} className='sub-button'>Insert</button>
+                                        </li>
+                                    })}
+                                </div>
+                                :
+                                null
+                        }
                         {
                             this.state.result || this.state.outs == 3
                                 ?
@@ -751,12 +719,14 @@ class Play extends Component {
                             this.state.batterAttributes
                                 ?
                                 <div id='home'>
-                                    <button onClick={this.handleBatterAttributes.bind(this)}>See card</button>
+                                    <button onClick={this.handleBatterAttributes.bind(this)} id='see-batter-card'>See card</button>
+                                    <button onClick={this.displayBench.bind(this)} id='see-bench'>See bench</button>
                                     <PlayerAttributes batter={this.state.batter} />
                                 </div>
                                 :
                                 <div id='home'>
-                                    <button onClick={this.handleBatterAttributes.bind(this)}>See attributes</button>
+                                    <button onClick={this.handleBatterAttributes.bind(this)} id='see-batter-card'>See attributes</button>
+                                    <button onClick={this.displayBench.bind(this)} id='see-bench'>See bench</button>
                                     <img src={this.state.batter.image} id='home-image' />
                                 </div>
                         }
@@ -764,12 +734,14 @@ class Play extends Component {
                             this.state.pitcherAttributes
                                 ?
                                 <div id='mound'>
-                                    <button onClick={this.handlePitcherAttributes.bind(this)}>See card</button>
+                                    <button onClick={this.handlePitcherAttributes.bind(this)} id='see-pitcher-card'>See card</button>
+                                    <button onClick={this.displayBullpen.bind(this)} id='see-pen'>See bullpen</button>
                                     <PlayerAttributes pitcher={this.state.pitcher} />
                                 </div>
                                 :
                                 <div id='mound'>
-                                    <button onClick={this.handlePitcherAttributes.bind(this)}>See attributes</button>
+                                    <button onClick={this.handlePitcherAttributes.bind(this)} id='see-pitcher-card'>See attributes</button>
+                                    <button onClick={this.displayBullpen.bind(this)} id='see-pen'>See bullpen</button>
                                     <img src={this.state.pitcher.image} id='mound-image' />
                                 </div>
                         }
