@@ -1633,6 +1633,10 @@ var _DisplayTeam = __webpack_require__(22);
 
 var _DisplayTeam2 = _interopRequireDefault(_DisplayTeam);
 
+var _RemoveFromTeam = __webpack_require__(166);
+
+var _RemoveFromTeam2 = _interopRequireDefault(_RemoveFromTeam);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1672,7 +1676,7 @@ var AllBatters = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'display-players' },
                 _react2.default.createElement(
                     'h1',
                     { className: 'page-header' },
@@ -1715,7 +1719,7 @@ var AllBatters = function (_Component) {
                                 null,
                                 _react2.default.createElement(
                                     'ul',
-                                    null,
+                                    { className: 'attributes-list' },
                                     _react2.default.createElement(
                                         'li',
                                         null,
@@ -1732,7 +1736,7 @@ var AllBatters = function (_Component) {
                                 ),
                                 _this2.state.displayAttributes && batter.id === _this2.state.displayPlayer ? null : _react2.default.createElement('img', { src: batter.image, className: 'player-img' })
                             ),
-                            _react2.default.createElement(_AddToTeam2.default, { users: _this2.props.users, playerId: batter.id, isBatter: _this2.state.isBatter })
+                            _this2.props.location.pathname.includes('team') ? _react2.default.createElement(_RemoveFromTeam2.default, { userId: _this2.props.location.pathname.slice(6), player: batter, playerId: batter.id, isBatter: _this2.state.isBatter }) : _react2.default.createElement(_AddToTeam2.default, { users: _this2.props.users, playerId: batter.id, isBatter: _this2.state.isBatter })
                         );
                     })
                 )
@@ -2777,6 +2781,10 @@ var _DisplayTeam = __webpack_require__(22);
 
 var _DisplayTeam2 = _interopRequireDefault(_DisplayTeam);
 
+var _RemoveFromTeam = __webpack_require__(166);
+
+var _RemoveFromTeam2 = _interopRequireDefault(_RemoveFromTeam);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2815,7 +2823,7 @@ var AllPitchers = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'display-players' },
                 _react2.default.createElement(
                     'h1',
                     { className: 'page-header' },
@@ -2858,7 +2866,7 @@ var AllPitchers = function (_Component) {
                                 null,
                                 _react2.default.createElement(
                                     'ul',
-                                    null,
+                                    { className: 'attributes-list' },
                                     _react2.default.createElement(
                                         'li',
                                         null,
@@ -2875,7 +2883,7 @@ var AllPitchers = function (_Component) {
                                 ),
                                 _this2.state.displayAttributes && pitcher.id === _this2.state.displayPlayer ? null : _react2.default.createElement('img', { src: pitcher.image, className: 'player-img' })
                             ),
-                            _react2.default.createElement(_AddToTeam2.default, { users: _this2.props.users, playerId: pitcher.id })
+                            _this2.props.location.pathname.includes('team') ? _react2.default.createElement(_RemoveFromTeam2.default, { userId: _this2.props.location.pathname.slice(6), player: pitcher, playerId: pitcher.id }) : _react2.default.createElement(_AddToTeam2.default, { users: _this2.props.users, playerId: pitcher.id })
                         );
                     })
                 )
@@ -5210,7 +5218,7 @@ var AllPlayers = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'display-players' },
                 _react2.default.createElement(_DisplayTeam2.default, { isAllDisplayed: this.state.isAllDisplayed }),
                 _react2.default.createElement(_AllBatters2.default, { isAllDisplayed: this.state.isAllDisplayed }),
                 _react2.default.createElement(_AllPitchers2.default, { isAllDisplayed: this.state.isAllDisplayed })
@@ -24388,6 +24396,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getBatters = getBatters;
 exports.createBatter = createBatter;
+exports.removeBatter = removeBatter;
 exports.fetchBatters = fetchBatters;
 exports.fetchUserBatters = fetchUserBatters;
 exports.default = battersReducer;
@@ -24402,6 +24411,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 var GET_BATTERS = 'GET_BATTERS';
 var CREATE_BATTER = 'CREATE_BATTER';
+var REMOVE_BATTER = 'REMOVE_BATTER';
 
 function getBatters(batters) {
     return {
@@ -24413,6 +24423,13 @@ function getBatters(batters) {
 function createBatter(batter) {
     return {
         type: CREATE_BATTER,
+        batter: batter
+    };
+}
+
+function removeBatter(batter) {
+    return {
+        type: REMOVE_BATTER,
         batter: batter
     };
 }
@@ -24450,6 +24467,10 @@ function battersReducer() {
             return action.batters;
         case CREATE_BATTER:
             return [].concat(_toConsumableArray(state), [action.batter]);
+        case REMOVE_BATTER:
+            return state.filter(function (batter) {
+                if (batter) return batter.id !== action.batter.id;
+            });
         default:
             return state;
     }
@@ -25401,6 +25422,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.getPitchers = getPitchers;
+exports.removePitcher = removePitcher;
 exports.fetchPitchers = fetchPitchers;
 exports.fetchUserPitchers = fetchUserPitchers;
 exports.default = pitchersReducer;
@@ -25412,11 +25434,19 @@ var _axios2 = _interopRequireDefault(_axios);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var GET_PITCHERS = 'GET_PITCHERS';
+var REMOVE_PITCHER = 'REMOVE_PITCHER';
 
 function getPitchers(pitchers) {
     return {
         type: GET_PITCHERS,
         pitchers: pitchers
+    };
+}
+
+function removePitcher(pitcher) {
+    return {
+        type: REMOVE_PITCHER,
+        pitcher: pitcher
     };
 }
 
@@ -25449,6 +25479,10 @@ function pitchersReducer() {
     switch (action.type) {
         case GET_PITCHERS:
             return action.pitchers;
+        case REMOVE_PITCHER:
+            return state.filter(function (pitcher) {
+                return pitcher.id !== action.pitcher.id;
+            });
         default:
             return state;
     }
@@ -25911,23 +25945,23 @@ var _AllPlayers = __webpack_require__(65);
 
 var _AllPlayers2 = _interopRequireDefault(_AllPlayers);
 
-var _UserTeam = __webpack_require__(166);
+var _UserTeam = __webpack_require__(167);
 
 var _UserTeam2 = _interopRequireDefault(_UserTeam);
 
-var _EnterGame = __webpack_require__(167);
+var _EnterGame = __webpack_require__(168);
 
 var _EnterGame2 = _interopRequireDefault(_EnterGame);
 
-var _SetAwayLineup = __webpack_require__(168);
+var _SetAwayLineup = __webpack_require__(169);
 
 var _SetAwayLineup2 = _interopRequireDefault(_SetAwayLineup);
 
-var _SetHomeLineup = __webpack_require__(169);
+var _SetHomeLineup = __webpack_require__(170);
 
 var _SetHomeLineup2 = _interopRequireDefault(_SetHomeLineup);
 
-var _Play = __webpack_require__(170);
+var _Play = __webpack_require__(171);
 
 var _Play2 = _interopRequireDefault(_Play);
 
@@ -28974,6 +29008,14 @@ var Navbar = function (_React$Component) {
             document.getElementById("teamDropdown").classList.toggle("show");
         }
     }, {
+        key: 'switchTeams',
+        value: function switchTeams(id) {
+            document.getElementById("teamDropdown").classList.toggle("show");
+            this.props.loadUser(id);
+            this.props.loadUserBatters(id);
+            this.props.loadUserPitchers(id);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -29030,7 +29072,7 @@ var Navbar = function (_React$Component) {
                         this.props.users.map(function (user) {
                             return _react2.default.createElement(
                                 _reactRouterDom.NavLink,
-                                { key: user.id, to: '/team/' + user.id, className: 'NavLink', onClick: _this2.toggleTeamsShow.bind(_this2) },
+                                { key: user.id, to: '/team/' + user.id, className: 'NavLink', onClick: _this2.switchTeams.bind(_this2, user.id) },
                                 user.teamName
                             );
                         })
@@ -29053,6 +29095,15 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         loadUsers: function loadUsers() {
             dispatch((0, _reducers.fetchUsers)());
+        },
+        loadUser: function loadUser(id) {
+            dispatch((0, _reducers.fetchUser)(id));
+        },
+        loadUserBatters: function loadUserBatters(id) {
+            dispatch((0, _reducers.fetchUserBatters)(id));
+        },
+        loadUserPitchers: function loadUserPitchers(id) {
+            dispatch((0, _reducers.fetchUserPitchers)(id));
         }
     };
 };
@@ -29115,6 +29166,13 @@ var PickTeams = function (_Component) {
             this.setState({ userId: event.target.value });
         }
     }, {
+        key: 'handleSelect',
+        value: function handleSelect(id) {
+            this.props.loadUser(id);
+            this.props.loadUserBatters(id);
+            this.props.loadUserPitchers(id);
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -29141,7 +29199,7 @@ var PickTeams = function (_Component) {
                     { to: '/team/' + this.state.userId },
                     _react2.default.createElement(
                         'button',
-                        null,
+                        { onClick: this.handleSelect.bind(this, this.state.userId) },
                         'Select'
                     )
                 )
@@ -29162,6 +29220,15 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         loadUsers: function loadUsers() {
             dispatch((0, _reducers.fetchUsers)());
+        },
+        loadUser: function loadUser(id) {
+            dispatch((0, _reducers.fetchUser)(id));
+        },
+        loadUserBatters: function loadUserBatters(id) {
+            dispatch((0, _reducers.fetchUserBatters)(id));
+        },
+        loadUserPitchers: function loadUserPitchers(id) {
+            dispatch((0, _reducers.fetchUserPitchers)(id));
         }
     };
 };
@@ -29170,6 +29237,84 @@ exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapSt
 
 /***/ }),
 /* 166 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(10);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _store = __webpack_require__(18);
+
+var _store2 = _interopRequireDefault(_store);
+
+var _reducers = __webpack_require__(7);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var RemoveFromTeam = function (_Component) {
+    _inherits(RemoveFromTeam, _Component);
+
+    function RemoveFromTeam() {
+        _classCallCheck(this, RemoveFromTeam);
+
+        return _possibleConstructorReturn(this, (RemoveFromTeam.__proto__ || Object.getPrototypeOf(RemoveFromTeam)).apply(this, arguments));
+    }
+
+    _createClass(RemoveFromTeam, [{
+        key: 'deletePlayer',
+        value: function deletePlayer(player) {
+            if (this.props.isBatter) {
+                _axios2.default.delete('/api/users/remove-batter/user/' + this.props.userId + '/batter/' + this.props.playerId).then(function () {
+                    return _store2.default.dispatch((0, _reducers.removeBatter)(player));
+                }).catch(console.error);
+            } else {
+                _axios2.default.delete('/api/users/remove-pitcher/user/' + this.props.userId + '/pitcher/' + this.props.playerId).then(function () {
+                    return _store2.default.dispatch((0, _reducers.removePitcher)(player));
+                }).catch(console.error);
+            }
+        }
+    }, {
+        key: 'handleDelete',
+        value: function handleDelete(player) {
+            this.deletePlayer(player);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'button',
+                { onClick: this.handleDelete.bind(this, this.props.player) },
+                'Delete'
+            );
+        }
+    }]);
+
+    return RemoveFromTeam;
+}(_react.Component);
+
+exports.default = RemoveFromTeam;
+
+/***/ }),
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29237,10 +29382,10 @@ var UserTeam = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'display-players' },
                 _react2.default.createElement(
                     'div',
-                    null,
+                    { className: 'team-page-name' },
                     _react2.default.createElement(
                         'h1',
                         null,
@@ -29284,7 +29429,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UserTeam));
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29347,7 +29492,7 @@ var PickTeams = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                null,
+                { id: 'enter' },
                 'Away: ',
                 _react2.default.createElement(
                     'select',
@@ -29415,7 +29560,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PickTeams));
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29492,64 +29637,76 @@ var SetLineups = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'display-players' },
                 _react2.default.createElement(
                     'h1',
-                    null,
+                    { className: 'set-lineup-team' },
                     this.props.singleUser.teamName
                 ),
                 _react2.default.createElement(
-                    'h3',
-                    null,
-                    'Batters'
-                ),
-                this.props.batters.map(function (batter) {
-                    return _react2.default.createElement(
+                    'div',
+                    { className: 'set-lineup-players' },
+                    _react2.default.createElement(
                         'div',
-                        { key: batter.id },
+                        { className: 'set-lineup-batters' },
                         _react2.default.createElement(
-                            'h4',
-                            { key: batter.id, onChange: _this2.handleChange.bind(_this2, batter) },
-                            batter.name,
-                            _react2.default.createElement(
-                                'span',
-                                null,
-                                '\xA0',
+                            'h3',
+                            null,
+                            'Batters'
+                        ),
+                        this.props.batters.map(function (batter) {
+                            return _react2.default.createElement(
+                                'div',
+                                { key: batter.id },
                                 _react2.default.createElement(
-                                    'select',
-                                    null,
-                                    _react2.default.createElement(_SelectLineup2.default, null)
+                                    'h4',
+                                    { key: batter.id, onChange: _this2.handleChange.bind(_this2, batter) },
+                                    batter.name,
+                                    _react2.default.createElement(
+                                        'span',
+                                        null,
+                                        '\xA0',
+                                        _react2.default.createElement(
+                                            'select',
+                                            null,
+                                            _react2.default.createElement(_SelectLineup2.default, null)
+                                        )
+                                    )
                                 )
-                            )
-                        )
-                    );
-                }),
-                _react2.default.createElement(
-                    'h3',
-                    null,
-                    'Pitchers'
-                ),
-                this.props.pitchers.map(function (pitcher) {
-                    return _react2.default.createElement(
+                            );
+                        })
+                    ),
+                    _react2.default.createElement(
                         'div',
-                        { key: pitcher.id },
+                        { className: 'set-lineup-pitchers' },
                         _react2.default.createElement(
-                            'h4',
-                            { key: pitcher.id, onChange: _this2.handleChange.bind(_this2, pitcher) },
-                            pitcher.name,
-                            _react2.default.createElement(
-                                'span',
-                                null,
-                                '\xA0',
+                            'h3',
+                            null,
+                            'Pitchers'
+                        ),
+                        this.props.pitchers.map(function (pitcher) {
+                            return _react2.default.createElement(
+                                'div',
+                                { key: pitcher.id },
                                 _react2.default.createElement(
-                                    'select',
-                                    null,
-                                    _react2.default.createElement(_SelectLineup2.default, null)
+                                    'h4',
+                                    { key: pitcher.id, onChange: _this2.handleChange.bind(_this2, pitcher) },
+                                    pitcher.name,
+                                    _react2.default.createElement(
+                                        'span',
+                                        null,
+                                        '\xA0',
+                                        _react2.default.createElement(
+                                            'select',
+                                            null,
+                                            _react2.default.createElement(_SelectLineup2.default, null)
+                                        )
+                                    )
                                 )
-                            )
-                        )
-                    );
-                }),
+                            );
+                        })
+                    )
+                ),
                 _react2.default.createElement(
                     _reactRouterDom.NavLink,
                     { to: '/home-lineup' },
@@ -29593,7 +29750,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SetLineups));
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29671,64 +29828,76 @@ var SetLineups = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'display-players' },
                 _react2.default.createElement(
                     'h1',
-                    null,
+                    { className: 'set-lineup-team' },
                     this.props.singleUser.teamName
                 ),
                 _react2.default.createElement(
-                    'h3',
-                    null,
-                    'Batters'
-                ),
-                this.props.batters.map(function (batter) {
-                    return _react2.default.createElement(
+                    'div',
+                    { className: 'set-lineup-players' },
+                    _react2.default.createElement(
                         'div',
-                        { key: batter.id },
+                        { className: 'set-lineup-batters' },
                         _react2.default.createElement(
-                            'h4',
-                            { key: batter.id, onChange: _this2.handleChange.bind(_this2, batter) },
-                            batter.name,
-                            _react2.default.createElement(
-                                'span',
-                                null,
-                                '\xA0',
+                            'h3',
+                            null,
+                            'Batters'
+                        ),
+                        this.props.batters.map(function (batter) {
+                            return _react2.default.createElement(
+                                'div',
+                                { key: batter.id },
                                 _react2.default.createElement(
-                                    'select',
-                                    null,
-                                    _react2.default.createElement(_SelectLineup2.default, null)
+                                    'h4',
+                                    { key: batter.id, onChange: _this2.handleChange.bind(_this2, batter) },
+                                    batter.name,
+                                    _react2.default.createElement(
+                                        'span',
+                                        null,
+                                        '\xA0',
+                                        _react2.default.createElement(
+                                            'select',
+                                            null,
+                                            _react2.default.createElement(_SelectLineup2.default, null)
+                                        )
+                                    )
                                 )
-                            )
-                        )
-                    );
-                }),
-                _react2.default.createElement(
-                    'h3',
-                    null,
-                    'Pitchers'
-                ),
-                this.props.pitchers.map(function (pitcher) {
-                    return _react2.default.createElement(
+                            );
+                        })
+                    ),
+                    _react2.default.createElement(
                         'div',
-                        { key: pitcher.id },
+                        { className: 'set-lineup-pitchers' },
                         _react2.default.createElement(
-                            'h4',
-                            { key: pitcher.id, onChange: _this2.handleChange.bind(_this2, pitcher) },
-                            pitcher.name,
-                            _react2.default.createElement(
-                                'span',
-                                null,
-                                '\xA0',
+                            'h3',
+                            null,
+                            'Pitchers'
+                        ),
+                        this.props.pitchers.map(function (pitcher) {
+                            return _react2.default.createElement(
+                                'div',
+                                { key: pitcher.id },
                                 _react2.default.createElement(
-                                    'select',
-                                    null,
-                                    _react2.default.createElement(_SelectLineup2.default, null)
+                                    'h4',
+                                    { key: pitcher.id, onChange: _this2.handleChange.bind(_this2, pitcher) },
+                                    pitcher.name,
+                                    _react2.default.createElement(
+                                        'span',
+                                        null,
+                                        '\xA0',
+                                        _react2.default.createElement(
+                                            'select',
+                                            null,
+                                            _react2.default.createElement(_SelectLineup2.default, null)
+                                        )
+                                    )
                                 )
-                            )
-                        )
-                    );
-                }),
+                            );
+                        })
+                    )
+                ),
                 _react2.default.createElement(
                     _reactRouterDom.NavLink,
                     { to: '/play' },
@@ -29772,7 +29941,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SetLineups));
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29792,11 +29961,11 @@ var _reactRouterDom = __webpack_require__(5);
 
 var _reactRedux = __webpack_require__(4);
 
-var _PlayerAttributes = __webpack_require__(171);
+var _PlayerAttributes = __webpack_require__(172);
 
 var _PlayerAttributes2 = _interopRequireDefault(_PlayerAttributes);
 
-var _Sub = __webpack_require__(172);
+var _Sub = __webpack_require__(173);
 
 var _Sub2 = _interopRequireDefault(_Sub);
 
@@ -30091,6 +30260,7 @@ var Play = function (_Component) {
                         //man on third singlePlus
                         console.log(this.state.batter.name + 'reached by: ', key);
                         this.setState({
+                            third: '',
                             second: this.state.batter,
                             currentScore: this.state.currentScore + 1
                         });
@@ -30768,7 +30938,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps)(Play));
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30944,7 +31114,7 @@ var PlayerAttributes = function (_Component) {
 exports.default = PlayerAttributes;
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

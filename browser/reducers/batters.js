@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const GET_BATTERS = 'GET_BATTERS';
 const CREATE_BATTER = 'CREATE_BATTER';
+const REMOVE_BATTER = 'REMOVE_BATTER';
 
 export function getBatters(batters) {
     return {
@@ -13,6 +14,13 @@ export function getBatters(batters) {
 export function createBatter(batter) {
     return {
         type: CREATE_BATTER,
+        batter
+    }
+}
+
+export function removeBatter(batter) {
+    return {
+        type: REMOVE_BATTER,
         batter
     }
 }
@@ -42,6 +50,10 @@ export default function battersReducer(state = [], action) {
             return action.batters;
         case CREATE_BATTER:
             return [...state, action.batter];
+        case REMOVE_BATTER:
+            return state.filter(batter => {
+                if (batter) return batter.id !== action.batter.id;
+            })
         default:
             return state;
     }

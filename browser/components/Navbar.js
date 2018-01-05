@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchUsers } from '../reducers';
+import { fetchUsers, fetchUser, fetchUserBatters, fetchUserPitchers } from '../reducers';
 
 class Navbar extends React.Component {
 
@@ -15,6 +15,13 @@ class Navbar extends React.Component {
 
     toggleTeamsShow() {
         document.getElementById("teamDropdown").classList.toggle("show");
+    }
+
+    switchTeams(id) {
+        document.getElementById("teamDropdown").classList.toggle("show");
+        this.props.loadUser(id);
+        this.props.loadUserBatters(id);
+        this.props.loadUserPitchers(id);
     }
 
     render() {
@@ -39,7 +46,7 @@ class Navbar extends React.Component {
                     {
                         this.props.users.map(user => {
                             return (
-                                <NavLink key={user.id} to={`/team/${user.id}`} className='NavLink' onClick={this.toggleTeamsShow.bind(this)}>{user.teamName}</NavLink>
+                               <NavLink key={user.id} to={`/team/${user.id}`} className='NavLink' onClick={this.switchTeams.bind(this, user.id)}>{user.teamName}</NavLink>
                             )
                         })
                     }
@@ -49,6 +56,7 @@ class Navbar extends React.Component {
         )
     }
 }
+
 
 const mapStateToProps = (state) => {
     return {
@@ -60,6 +68,15 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadUsers() {
             dispatch(fetchUsers());
+        },
+        loadUser(id) {
+            dispatch(fetchUser(id));
+        },
+        loadUserBatters(id) {
+            dispatch(fetchUserBatters(id));
+        },
+        loadUserPitchers(id) {
+            dispatch(fetchUserPitchers(id));
         }
     }
 }

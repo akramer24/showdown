@@ -5,6 +5,7 @@ import { fetchPitchers, fetchUsers } from '../reducers';
 import AddToTeam from './AddToTeam';
 import SinglePitcher from './SinglePitcher';
 import DisplayTeam from './DisplayTeam';
+import RemoveFromTeam from './RemoveFromTeam';
 
 class AllPitchers extends Component {
 
@@ -25,7 +26,7 @@ class AllPitchers extends Component {
         const pitchers = this.props.pitchers;
 
         return (
-            <div>
+            <div className='display-players'>
                 <h1 className='page-header'>Pitchers</h1>
                 <div id='all-pitchers'>
                     {
@@ -54,7 +55,7 @@ class AllPitchers extends Component {
                                         }
                                     </button>
                                     <div>
-                                        <ul>
+                                        <ul className='attributes-list'>
                                             <li>Position: {pitcher.position}</li>
                                             <li>Control: {pitcher.control}</li>
 
@@ -74,7 +75,13 @@ class AllPitchers extends Component {
                                                 <img src={pitcher.image} className='player-img' />
                                         }
                                     </div>
-                                    <AddToTeam users={this.props.users} playerId={pitcher.id} />
+                                    {
+                                        this.props.location.pathname.includes('team')
+                                            ?
+                                            <RemoveFromTeam userId={this.props.location.pathname.slice(6)} player={pitcher} playerId={pitcher.id} />
+                                            :
+                                            <AddToTeam users={this.props.users} playerId={pitcher.id} />
+                                    } 
                                 </div>
                             )
                         })

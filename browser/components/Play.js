@@ -280,6 +280,7 @@ class Play extends Component {
                     //man on third singlePlus
                     console.log(this.state.batter.name + 'reached by: ', key)
                     this.setState({
+                        third: '',
                         second: this.state.batter,
                         currentScore: this.state.currentScore + 1
                     });

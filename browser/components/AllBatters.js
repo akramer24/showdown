@@ -5,6 +5,7 @@ import { fetchBatters, fetchUsers } from '../reducers';
 import AddToTeam from './AddToTeam';
 import SingleBatter from './SingleBatter';
 import DisplayTeam from './DisplayTeam';
+import RemoveFromTeam from './RemoveFromTeam';
 
 class AllBatters extends Component {
 
@@ -26,7 +27,7 @@ class AllBatters extends Component {
         const batters = this.props.batters;
 
         return (
-            <div>
+            <div className='display-players'>
                 <h1 className='page-header'>Batters</h1>
                 <div id='all-batters'>
                     {
@@ -55,7 +56,7 @@ class AllBatters extends Component {
                                         }
                                     </button>
                                     <div>
-                                        <ul>
+                                        <ul className='attributes-list'>
                                             <li>Position: {batter.position}</li>
                                             <li>On-Base: {batter.onBase}</li>
 
@@ -76,8 +77,13 @@ class AllBatters extends Component {
                                                 <img src={batter.image} className='player-img' />
                                         }
                                     </div>
-
-                                    <AddToTeam users={this.props.users} playerId={batter.id} isBatter={this.state.isBatter} />
+                                    {
+                                        this.props.location.pathname.includes('team')
+                                            ?
+                                            <RemoveFromTeam userId={this.props.location.pathname.slice(6)} player={batter} playerId={batter.id} isBatter={this.state.isBatter} />
+                                            :
+                                            <AddToTeam users={this.props.users} playerId={batter.id} isBatter={this.state.isBatter} />
+                                    }    
                                 </div>
                             )
                         })

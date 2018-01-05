@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchUsers } from '../reducers';
+import { fetchUsers, fetchUser, fetchUserBatters, fetchUserPitchers } from '../reducers';
 
 class PickTeams extends Component {
     constructor() {
@@ -19,6 +19,12 @@ class PickTeams extends Component {
         this.setState({ userId: event.target.value });
     }
 
+    handleSelect(id) {
+        this.props.loadUser(id);
+        this.props.loadUserBatters(id);
+        this.props.loadUserPitchers(id);
+    }
+
     render() {
         return (
             <div>
@@ -33,7 +39,7 @@ class PickTeams extends Component {
                     }
                 </select>
                 <NavLink to={`/team/${this.state.userId}`}>
-                    <button>Select</button>
+                    <button onClick={this.handleSelect.bind(this, this.state.userId)}>Select</button>
                 </NavLink>
             </div>
         )
@@ -50,6 +56,15 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadUsers() {
             dispatch(fetchUsers());
+        },
+        loadUser(id) {
+            dispatch(fetchUser(id));
+        },
+        loadUserBatters(id) {
+            dispatch(fetchUserBatters(id));
+        },
+        loadUserPitchers(id) {
+            dispatch(fetchUserPitchers(id));
         }
     }
 }

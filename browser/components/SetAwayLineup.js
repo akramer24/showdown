@@ -30,42 +30,48 @@ class SetLineups extends Component {
 
     render() {
         return (
-            <div>
-                <h1>{this.props.singleUser.teamName}</h1>
-                <h3>Batters</h3>
-                {
-                    this.props.batters.map(batter => {
-                        return (
-                            <div key={batter.id}>
-                                <h4 key={batter.id} onChange={this.handleChange.bind(this, batter)}>{batter.name}
-                                    <span>&nbsp;
+            <div className='display-players'>
+                <h1 className='set-lineup-team'>{this.props.singleUser.teamName}</h1>
+                <div className='set-lineup-players'>
+                    <div className='set-lineup-batters'>
+                    <h3>Batters</h3>
+                    {
+                        this.props.batters.map(batter => {
+                            return (
+                                <div key={batter.id}>
+                                    <h4 key={batter.id} onChange={this.handleChange.bind(this, batter)}>{batter.name}
+                                        <span>&nbsp;
                                         <select >
-                                            <SelectLineup />
-                                        </select>
-                                    </span>
-                                </h4>
+                                                <SelectLineup />
+                                            </select>
+                                        </span>
+                                    </h4>
 
-                            </div>
-                        )
-                    })
-                }
-                <h3>Pitchers</h3>
-                {
-                    this.props.pitchers.map(pitcher => {
-                        return (
-                            <div key={pitcher.id}>
-                            <h4 key={pitcher.id} onChange={this.handleChange.bind(this, pitcher)}>{pitcher.name}
-                                <span>&nbsp;
+                                </div>
+                            )
+                        })
+                    }
+                    </div>
+                    <div className='set-lineup-pitchers'>
+                    <h3>Pitchers</h3>
+                    {
+                        this.props.pitchers.map(pitcher => {
+                            return (
+                                <div key={pitcher.id}>
+                                    <h4 key={pitcher.id} onChange={this.handleChange.bind(this, pitcher)}>{pitcher.name}
+                                        <span>&nbsp;
                                     <select >
-                                        <SelectLineup />
-                                    </select>
-                                </span>
-                            </h4>
+                                                <SelectLineup />
+                                            </select>
+                                        </span>
+                                    </h4>
 
-                        </div>
-                        )
-                    })
-                }
+                                </div>
+                            )
+                        })
+                    }
+                    </div>
+                </div>
                 <NavLink to='/home-lineup'><button onClick={this.handleSubmit.bind(this)}>Submit</button></NavLink>
             </div>
         )

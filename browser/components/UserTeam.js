@@ -17,8 +17,8 @@ class UserTeam extends Component {
 
     render() {
         return (
-            <div>
-                <div>
+            <div className='display-players'>
+                <div className='team-page-name'>
                     <h1>{this.props.singleUser.teamName}</h1>
                 </div>
                 <div>

@@ -81,4 +81,26 @@ userRouter.post('/add-pitcher', (req, res, next) => {
     })
 })
 
+userRouter.delete('/remove-batter/user/:userId/batter/:batterId', (req, res, next) => {
+    UserBatter.destroy({
+        where: {
+            userId: req.params.userId,
+            batterId: req.params.batterId
+        }
+    })
+    .then(() => res.sendStatus(204).end())
+    .catch(next);
+})
+
+userRouter.delete('/remove-pitcher/user/:userId/pitcher/:pitcherId', (req, res, next) => {
+    UserPitcher.destroy({
+        where: {
+            userId: req.params.userId,
+            pitcherId: req.params.pitcherId
+        }
+    })
+    .then(() => res.sendStatus(204).end())
+    .catch(next);
+})
+
 module.exports = userRouter;

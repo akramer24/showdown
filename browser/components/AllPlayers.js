@@ -13,7 +13,7 @@ export default class AllPlayers extends React.Component {
     
     render() {
         return (
-            <div>
+            <div className='display-players'>
                 <DisplayTeam isAllDisplayed={this.state.isAllDisplayed}/>
                 <AllBatters isAllDisplayed={this.state.isAllDisplayed}/>
                 <AllPitchers isAllDisplayed={this.state.isAllDisplayed}/>

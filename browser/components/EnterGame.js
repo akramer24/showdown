@@ -20,7 +20,7 @@ class PickTeams extends Component {
 
     render() {
         return (
-            <div>
+            <div id='enter'>
                 Away: <select onChange={this.handleSelectAwayUser.bind(this)}>
                     <option defaultValue defaultChecked hidden>Select team</option>
                     {
