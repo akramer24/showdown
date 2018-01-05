@@ -68,25 +68,38 @@ class Play extends Component {
     }
 
     handleRoll() {
-        const roll = Math.ceil(Math.random() * 20);
         const onBase = this.state.batter.onBase;
         const control = this.state.pitcher.control;
 
-        if (roll + control > onBase) {
-            this.setState({
-                turn: 'pitcher',
-                roll,
-                result: '',
-                totalPAs: this.state.totalPAs + 1
-            })
-        } else {
-            this.setState({
-                turn: 'batter',
-                roll,
-                result: '',
-                totalPAs: this.state.totalPAs + 1
-            })
-        }
+        let count = 6;
+        let roll = null;
+
+        setInterval(() => {
+            if (count > 0) {
+                roll = Math.ceil(Math.random() * 20);
+                this.setState({ roll });
+                count--;
+            }
+        }, 100)
+
+        setTimeout(() => {
+            if (this.state.roll + control > onBase) {
+                this.setState({
+                    turn: 'pitcher',
+                    roll,
+                    result: '',
+                    totalPAs: this.state.totalPAs + 1
+                })
+            } else {
+                this.setState({
+                    turn: 'batter',
+                    roll,
+                    result: '',
+                    totalPAs: this.state.totalPAs + 1
+                })
+            }
+        }, 650)
+
     }
 
     handlePitch() {
@@ -587,9 +600,9 @@ class Play extends Component {
         const benchIdx = this.state.bench.indexOf(sub);
         lineup[lineupIdx] = sub;
         bench.splice(benchIdx, 1);
-        
+
         if (this.state.half === 'top') {
-            this.setState({ awayBench: bench})
+            this.setState({ awayBench: bench })
         } else {
             this.setState({ homeBench: bench })
         }
